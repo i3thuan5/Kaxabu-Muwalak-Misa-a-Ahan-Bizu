@@ -1,0 +1,2 @@
+# kaxabu_muwalak_misa_a_ahan_bizu
+噶哈巫語分類辭典
