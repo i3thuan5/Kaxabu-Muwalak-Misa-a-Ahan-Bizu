@@ -76,7 +76,8 @@ class 切錄音檔試驗(TestCase):
         self.assertEqual(
             辭典資料,
             set([
-                '01A-001，thâu_ê_tsoân-pō•，頭（整個），punu 0 1 A 0 0 1 tʰ au ʔ e ts uan p o ㄊ ㄡ p u n u'])
+                '01A-001，thâu_ê_tsoân-pō•，頭（整個），punu 0 1 A 0 0 1 tʰ au ʔ e ts uan p o ㄊ ㄡ p u n u'
+            ])
         )
 
     def test_仝款資料辭典出現一擺(self):

@@ -1,4 +1,6 @@
 from itertools import chain
+import json
+import re
 
 import xlrd
 
@@ -9,6 +11,7 @@ from 臺灣言語工具.解析整理.轉物件音家私 import 轉物件音家�
 from 臺灣言語工具.音標系統.閩南語.臺灣閩南語羅馬字拼音 import 臺灣閩南語羅馬字拼音
 from 臺灣言語工具.解析整理.字物件篩仔 import 字物件篩仔
 from 臺灣言語工具.音標系統.閩南語.教會羅馬字音標 import 教會羅馬字音標
+from bizu.參數 import 教育部重編國語辭典json所在
 
 
 class 切錄音檔:
@@ -49,10 +52,10 @@ class 切錄音檔:
                 if 語言 == '語詞編號':
                     辨識單位.append(語句.replace('-', ''))
                 elif 語言 == '臺語':
-                    句物件=拆文分析器.產生對齊句(語句,語句)
-                    預設音物件=轉物件音家私.轉音(教會羅馬字音標, 句物件)
-                    音值物件=轉物件音家私.轉音(臺灣閩南語羅馬字拼音, 預設音物件,函式=                                    '音值')
-                    音值陣列=[]
+                    句物件 = 拆文分析器.產生對齊句(語句, 語句)
+                    預設音物件 = 轉物件音家私.轉音(教會羅馬字音標, 句物件)
+                    音值物件 = 轉物件音家私.轉音(臺灣閩南語羅馬字拼音, 預設音物件, 函式='音值')
+                    音值陣列 = []
                     for 字物件 in 字物件篩仔.篩出字物件(音值物件):
                         try:
                             音值陣列.extend(字物件.音[:2])
@@ -61,9 +64,23 @@ class 切錄音檔:
                     辨識單位.append(音值陣列)
                 else:
                     辨識單位.append(語句)
-            標仔='，'.join(語句陣列)
+            標仔 = '，'.join(語句陣列)
             標仔資料.append(標仔)
             辭典資料.add(
                 '{} {}'.format(標仔, ' '.join(chain.from_iterable(辨識單位)))
             )
         return 標仔資料, 辭典資料
+
+    @classmethod
+    def _提教育部重編國語辭典的注音(cls):
+        全部資料 = []
+        with open(教育部重編國語辭典json所在) as 檔案:
+            for 一筆json in json.load(檔案):
+                if re.search('[[{]', 一筆json['title']) is None:
+                    for 解釋 in 一筆json['heteronyms']:
+                        if 'bopomofo' in 解釋:
+                            全部資料.append(
+                                {'漢字': 一筆json['title'], '注音': 解釋['bopomofo']}
+                            )
+                            print(全部資料[-1])
+        return 全部資料
