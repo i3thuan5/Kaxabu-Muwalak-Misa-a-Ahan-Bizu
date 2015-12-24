@@ -23,3 +23,10 @@
 	* 頭（整個） ㄊ ㄡ
 	* punu p u n u
 4. HTK的mlf檔
+
+## 做法
+### 音標轉wav
+到音檔目錄執行以下`bash`
+```bash
+mkdir wav ; find . -name '*mp3' | egrep -v "25|26" | awk '{print "avconv -i "$0" "$0}'| sed 's/3 \./3 wav/g' | sed 's/\.[^ 1-9]*mp3$/.wav/g' | bash
+```
