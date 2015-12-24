@@ -1,5 +1,7 @@
 from itertools import chain
 import json
+from os import makedirs
+from os.path import dirname, abspath, join
 import re
 
 import xlrd
@@ -15,11 +17,14 @@ from bizu.參數 import 教育部重編國語辭典json所在
 from 臺灣言語工具.辭典.型音辭典 import 型音辭典
 from 臺灣言語工具.語言模型.實際語言模型 import 實際語言模型
 from 臺灣言語工具.基本元素.詞 import 詞
-from 臺灣言語工具.斷詞.辭典語言模型斷詞 import 辭典語言模型斷詞
 from 臺灣言語工具.音標系統.官話.官話注音符號 import 官話注音符號
 from 臺灣言語工具.系統整合.程式腳本 import 程式腳本
-from os.path import dirname, abspath, join
-from os import makedirs
+from 臺灣言語工具.解析整理.文章粗胚 import 文章粗胚
+from collections import OrderedDict
+from 臺灣言語工具.斷詞.拄好長度辭典揣詞 import 拄好長度辭典揣詞
+from 臺灣言語工具.解析整理.集內組照排 import 集內組照排
+from 臺灣言語工具.解析整理.物件譀鏡 import 物件譀鏡
+from 臺灣言語工具.解析整理.揀集內組 import 揀集內組
 
 
 class 切錄音檔(程式腳本):
@@ -31,8 +36,8 @@ class 切錄音檔(程式腳本):
     def 切音檔(cls, 暫存目錄=join(dirname(abspath(__file__)), '暫存')):
         句資料, 詞資料 = cls._xls轉語句格式()
         makedirs(暫存目錄, exist_ok=True)
-        cls._辨識(句資料, 暫存目錄)
-        cls._辨識(詞資料, 暫存目錄)
+        cls._辨識(句資料, join(暫存目錄, '句'))
+        cls._辨識(詞資料, join(暫存目錄, '詞'))
 
     @classmethod
     def _辨識(cls, 資料, 暫存目錄):
@@ -49,8 +54,8 @@ class 切錄音檔(程式腳本):
         表格欄位 = {}
         for 第幾個, 資料 in enumerate(表格.row_values(0)):
             表格欄位[資料] = 第幾個
-        句資料 = {}
-        詞資料 = {}
+        句資料 = OrderedDict()
+        詞資料 = OrderedDict()
         for 編號 in range(1, 25):
             編號字串 = '{:02}'.format(編號)
             句資料[編號字串] = []
@@ -82,28 +87,34 @@ class 切錄音檔(程式腳本):
         for 編號, 語句陣列 in 語句格式.items():
             標仔資料[編號] = []
             for 語句資料 in 語句陣列:
-                語句陣列 = []
+                語句標仔陣列 = []
                 辨識單位 = []
                 for 語言, 語句 in 語句資料:
-                    語句陣列.append(語句.replace(' ', '_'))
+                    語句標仔陣列.append(語句.replace(' ', '_'))
                     if 語言 == '語詞編號':
                         辨識單位.append(語句.replace('-', ''))
                     elif 語言 == '臺語':
-                        句物件 = 拆文分析器.產生對齊句(語句, 語句)
-                        預設音物件 = 轉物件音家私.轉音(教會羅馬字音標, 句物件)
-                        音值物件 = 轉物件音家私.轉音(臺灣閩南語羅馬字拼音, 預設音物件, 函式='音值')
-                        音值陣列 = []
-                        for 字物件 in 字物件篩仔.篩出字物件(音值物件):
-                            try:
-                                音值陣列.extend(字物件.音[:2])
-                            except:
-                                pass
-                        辨識單位.append(音值陣列)
+                        try:
+                            處理語句 = 文章粗胚.建立物件語句前處理減號(教會羅馬字音標, 語句)
+                            句物件 = 拆文分析器.產生對齊句(處理語句, 處理語句)
+                            預設音物件 = 轉物件音家私.轉音(教會羅馬字音標, 句物件)
+                            音值物件 = 轉物件音家私.轉音(臺灣閩南語羅馬字拼音, 預設音物件, 函式='音值')
+                            音值陣列 = []
+                            for 字物件 in 字物件篩仔.篩出字物件(音值物件):
+                                try:
+                                    音值陣列.extend(字物件.音[:2])
+                                except:
+                                    pass
+                            辨識單位.append(音值陣列)
+                        except Exception as 錯誤:
+                            print(錯誤)
+                            print(語句)
+                            辨識單位.append('X' * (len(語句) // 3 + 1))
                     elif 語言 == '華語':
-                        辨識單位.append(cls._華語漢字轉注音(語句))
+                        辨識單位.append(cls._華語漢字轉注音(文章粗胚.建立物件語句前減號變標點符號(語句)))
                     else:
                         辨識單位.append(語句)
-                標仔 = '，'.join(語句陣列)
+                標仔 = '，'.join(語句標仔陣列)
                 標仔資料[編號].append(標仔)
                 辭典資料.add(
                     '{} {}'.format(標仔, ' '.join(chain.from_iterable(辨識單位)))
@@ -113,11 +124,12 @@ class 切錄音檔(程式腳本):
     @classmethod
     def _華語漢字轉注音(cls, 語句):
         cls.準備教育部重編國語辭典的辭典佮語言模型()
-        斷詞結果, _分數, _詞數 = 辭典語言模型斷詞.斷詞(
-            cls.華語辭典, cls.華語語言模型,
-            拆文分析器.建立組物件(cls.華語解釋.sub('', 語句))
+        揣詞結果, _分數, _詞數 = 拄好長度辭典揣詞.揣詞(
+            cls.華語辭典, 拆文分析器.建立組物件(cls.華語解釋.sub('', 語句)))
+        揀好結果 = 揀集內組.揀(
+            集內組照排.排好(lambda 組物件: 物件譀鏡.看型(組物件), 揣詞結果)
         )
-        for 字物件 in 字物件篩仔.篩出字物件(斷詞結果):
+        for 字物件 in 字物件篩仔.篩出字物件(揀好結果):
             注音符號 = 官話注音符號(字物件.音)
             if 注音符號.聲 is not None:
                 yield 注音符號.聲
