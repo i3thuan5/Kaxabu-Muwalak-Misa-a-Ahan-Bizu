@@ -12,9 +12,16 @@ from 臺灣言語工具.音標系統.閩南語.臺灣閩南語羅馬字拼音 im
 from 臺灣言語工具.解析整理.字物件篩仔 import 字物件篩仔
 from 臺灣言語工具.音標系統.閩南語.教會羅馬字音標 import 教會羅馬字音標
 from bizu.參數 import 教育部重編國語辭典json所在
+from 臺灣言語工具.辭典.型音辭典 import 型音辭典
+from 臺灣言語工具.語言模型.實際語言模型 import 實際語言模型
+from 臺灣言語工具.基本元素.詞 import 詞
+from 臺灣言語工具.斷詞.辭典語言模型斷詞 import 辭典語言模型斷詞
+from 臺灣言語工具.音標系統.官話.官話注音符號 import 官話注音符號
 
 
 class 切錄音檔:
+    華語辭典 = None
+    華語解釋 = re.compile('[（(].*[）)]')
 
     @classmethod
     def _xls轉語句格式(cls):
@@ -62,6 +69,8 @@ class 切錄音檔:
                         except:
                             pass
                     辨識單位.append(音值陣列)
+                elif 語言 == '華語':
+                    辨識單位.append(cls._華語漢字轉注音(語句))
                 else:
                     辨識單位.append(語句)
             標仔 = '，'.join(語句陣列)
@@ -70,6 +79,34 @@ class 切錄音檔:
                 '{} {}'.format(標仔, ' '.join(chain.from_iterable(辨識單位)))
             )
         return 標仔資料, 辭典資料
+
+    @classmethod
+    def _華語漢字轉注音(cls, 語句):
+        cls.準備教育部重編國語辭典的辭典佮語言模型()
+        斷詞結果, _分數, _詞數 = 辭典語言模型斷詞.斷詞(
+            cls.華語辭典, cls.華語語言模型,
+            拆文分析器.建立組物件(cls.華語解釋.sub('', 語句))
+        )
+        for 字物件 in 字物件篩仔.篩出字物件(斷詞結果):
+            注音符號 = 官話注音符號(字物件.音)
+            yield 注音符號.聲
+            yield 注音符號.韻
+
+    @classmethod
+    def 準備教育部重編國語辭典的辭典佮語言模型(cls):
+        if cls.華語辭典 is None:
+            cls.華語辭典 = 型音辭典(1)
+            cls.華語語言模型 = 實際語言模型(1)
+            for 資料 in cls._提教育部重編國語辭典的注音():
+                漢字 = 資料['漢字'].replace('，', '')
+                注音 = 資料['注音']
+                try:
+                    組物件 = 拆文分析器.產生對齊組(漢字, 注音)
+                    for 字物件 in 字物件篩仔.篩出字物件(組物件):
+                        cls.華語辭典.加詞(詞([字物件]))
+                        cls.華語語言模型.看(字物件)
+                except:
+                    pass
 
     @classmethod
     def _提教育部重編國語辭典的注音(cls):
@@ -82,5 +119,4 @@ class 切錄音檔:
                             全部資料.append(
                                 {'漢字': 一筆json['title'], '注音': 解釋['bopomofo']}
                             )
-                            print(全部資料[-1])
         return 全部資料

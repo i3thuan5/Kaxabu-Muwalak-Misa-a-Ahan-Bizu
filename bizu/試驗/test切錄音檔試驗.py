@@ -5,6 +5,11 @@ from bizu.切錄音檔 import 切錄音檔
 
 class 切錄音檔試驗(TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        super(cls, cls).setUpClass()
+        切錄音檔.準備教育部重編國語辭典的辭典佮語言模型()
+
     def test_句格式(self):
         句資料, _詞資料 = 切錄音檔._xls轉語句格式()
         self.assertIn([
@@ -64,6 +69,15 @@ class 切錄音檔試驗(TestCase):
         self.assertEqual(
             辭典資料,
             set(['punu p u n u'])
+        )
+
+    def test_檢查辭典華語(self):
+        _標仔資料, 辭典資料 = 切錄音檔._轉標仔佮辭典([
+            [('華語', '頭（整個）')]
+        ])
+        self.assertEqual(
+            辭典資料,
+            set(['頭（整個） ㄊ ㄡ'])
         )
 
     def test_檢查辭典資料(self):
