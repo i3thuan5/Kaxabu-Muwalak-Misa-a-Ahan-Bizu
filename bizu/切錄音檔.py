@@ -27,10 +27,11 @@ from 臺灣言語工具.解析整理.物件譀鏡 import 物件譀鏡
 from 臺灣言語工具.解析整理.揀集內組 import 揀集內組
 from 臺灣言語工具.語音辨識.HTK工具.HTK辨識模型訓練 import HTK辨識模型訓練
 from bizu.參數 import wav音檔目錄
+from 臺灣言語工具.基本元素.公用變數 import 標點符號
 
 
 class 切錄音檔(程式腳本):
-    編號開始 = re.compile(r'^[0-9]')
+    編號開始 = re.compile(r'^[0-9A-Z\-]+')
     華語辭典 = None
     華語解釋 = re.compile('[（(].*[）)]')
 
@@ -73,7 +74,7 @@ class 切錄音檔(程式腳本):
             詞資料[編號字串] = []
         for 第幾逝 in range(1, 表格.nrows):
             逝 = 表格.row_values(第幾逝)
-            語詞編號 = 逝[表格欄位['語詞編號']]
+            語詞編號 = 逝[表格欄位['語詞編號']].strip()
             Kaxabu = 逝[表格欄位['噶哈巫語教材標記法']]
             if Kaxabu != '':
                 華語 = 逝[表格欄位['中文譯解']]
@@ -82,10 +83,15 @@ class 切錄音檔(程式腳本):
                     ('語詞編號', 語詞編號), ('臺語', 臺語),
                     ('華語', 華語), ('Kaxabu', Kaxabu)
                 ]
-            elif cls.編號開始.search(語詞編號):
-                這筆資料 = [('語詞編號', 語詞編號)]
             else:
-                continue
+                try:
+                    編號字串 = cls.編號開始.search(語詞編號).group(0)
+                    這筆資料 = [(
+                        '語詞編號',
+                        編號字串 + '輔元' * ((len(語詞編號) - len(編號字串)) // 3)
+                    )]
+                except:
+                    continue
             編號字串 = 語詞編號[:2]
             句資料[編號字串].append(這筆資料)
             for 詞 in 這筆資料:
@@ -94,9 +100,9 @@ class 切錄音檔(程式腳本):
 
     @classmethod
     def _轉標仔佮辭典(cls, 語句格式):
-        標仔資料, 辭典資料 = {}, set()
+        標仔資料, 辭典資料 = {}, {'sil sil'}
         for 編號, 語句陣列 in 語句格式.items():
-            標仔資料[編號] = []
+            標仔資料[編號] = ['sil']
             for 語句資料 in 語句陣列:
                 語句標仔陣列 = []
                 辨識單位 = []
@@ -125,12 +131,35 @@ class 切錄音檔(程式腳本):
                         辨識單位.append(cls._華語漢字轉注音(文章粗胚.建立物件語句前減號變標點符號(語句)))
                     else:
                         辨識單位.append(語句)
+                    辨識單位.append(['sil'])
                 標仔 = '，'.join(語句標仔陣列)
-                標仔資料[編號].append(標仔)
+                標仔資料[編號].append(cls._處理孤雙引號(標仔))
+                標仔資料[編號].append('sil')
+                辨識單位.pop()
                 辭典資料.add(
-                    '{} {}'.format(標仔, ' '.join(chain.from_iterable(辨識單位)))
+                    cls._處理孤雙引號(
+                        '{} {}'.format(
+                            標仔,
+                            ' '.join(
+                                cls._處理音素(
+                                    chain.from_iterable(辨識單位))
+                            )
+                        )
+                    )
                 )
         return 標仔資料, 辭典資料
+
+    @classmethod
+    def _處理孤雙引號(cls, 語句):
+        return 語句.replace("'", "hʔ").replace('"', "")
+
+    @classmethod
+    def _處理音素(cls, 音素陣列):
+        for 音素 in 音素陣列:
+            if re.search(r'^[0-9]', 音素):
+                yield '音' + 音素
+            elif 音素 != '' and 音素 not in 標點符號:
+                yield 音素
 
     @classmethod
     def _華語漢字轉注音(cls, 語句):

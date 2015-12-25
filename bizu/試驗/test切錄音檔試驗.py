@@ -52,7 +52,11 @@ class 切錄音檔試驗(TestCase):
         })
         self.assertEqual(
             標仔資料,
-            {'01': ['01A-001，thâu_ê_tsoân-pō•，頭（整個），punu']}
+            {'01': [
+                'sil',
+                '01A-001，thâu_ê_tsoân-pō•，頭（整個），punu',
+                'sil'
+            ]}
         )
 
     def test_檢查辭典語詞編號(self):
@@ -63,7 +67,7 @@ class 切錄音檔試驗(TestCase):
         })
         self.assertEqual(
             辭典資料,
-            set(['01A-001 0 1 A 0 0 1'])
+            set(['sil sil', '01A-001 音0 音1 A 音0 音0 音1'])
         )
 
     def test_檢查辭典臺語(self):
@@ -74,7 +78,7 @@ class 切錄音檔試驗(TestCase):
         })
         self.assertEqual(
             辭典資料,
-            set(['thâu_ê_tsoân-pō• tʰ au ʔ e ts uan p o'])
+            set(['sil sil', 'thâu_ê_tsoân-pō• tʰ au ʔ e ts uan p o'])
         )
 
     def test_檢查辭典Kaxabu(self):
@@ -85,7 +89,7 @@ class 切錄音檔試驗(TestCase):
         })
         self.assertEqual(
             辭典資料,
-            set(['punu p u n u'])
+            set(['sil sil', 'punu p u n u'])
         )
 
     def test_檢查辭典華語(self):
@@ -96,7 +100,7 @@ class 切錄音檔試驗(TestCase):
         })
         self.assertEqual(
             辭典資料,
-            set(['頭（整個） ㄊ ㄡ'])
+            set(['sil sil', '頭（整個） ㄊ ㄡ'])
         )
 
     def test_檢查辭典資料(self):
@@ -111,12 +115,21 @@ class 切錄音檔試驗(TestCase):
         self.assertEqual(
             辭典資料,
             set([
-                '01A-001，thâu_ê_tsoân-pō•，頭（整個），punu 0 1 A 0 0 1 tʰ au ʔ e ts uan p o ㄊ ㄡ p u n u'
+                'sil sil',
+                '01A-001，thâu_ê_tsoân-pō•，頭（整個），punu 音0 音1 A 音0 音0 音1 sil tʰ au ʔ e ts uan p o sil ㄊ ㄡ sil p u n u'
             ])
         )
 
     def test_仝款資料辭典出現一擺(self):
-        _標仔資料, 辭典資料 = 切錄音檔._轉標仔佮辭典({
+        _標仔資料, 原本辭典資料 = 切錄音檔._轉標仔佮辭典({
+            '01': [
+                [
+                    ('語詞編號', '01A-001'), ('臺語', 'thâu ê tsoân-pō•'),
+                    ('華語', '頭（整個）'), ('Kaxabu', 'punu')
+                ],
+            ]
+        })
+        _標仔資料, 兩句仝款辭典資料 = 切錄音檔._轉標仔佮辭典({
             '01': [
                 [
                     ('語詞編號', '01A-001'), ('臺語', 'thâu ê tsoân-pō•'),
@@ -128,4 +141,4 @@ class 切錄音檔試驗(TestCase):
                 ]
             ]
         })
-        self.assertEqual(len(辭典資料), 1)
+        self.assertEqual(原本辭典資料, 兩句仝款辭典資料)
