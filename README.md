@@ -45,8 +45,14 @@ pip install xlrd
 ```
 
 ### 設定參數
-改`bizu/參數.py`
+改`bizu/參數.py`，填上面`轉wav`和`git clone`的路徑
 ```
 xls所在 = '路徑/《噶哈巫語分類辭典》EXCEL版本.xls'
 教育部重編國語辭典json所在 = 'moedict-data路徑/dict-revised.json'
+wav音檔目錄= '路徑/wav/'
+```
+
+### 執行
+```
+PYTHONPATH=../tai5-uan5_gian5-gi2_kang1-ku7/ python 走.py
 ```

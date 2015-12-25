@@ -25,6 +25,8 @@ from 臺灣言語工具.斷詞.拄好長度辭典揣詞 import 拄好長度辭�
 from 臺灣言語工具.解析整理.集內組照排 import 集內組照排
 from 臺灣言語工具.解析整理.物件譀鏡 import 物件譀鏡
 from 臺灣言語工具.解析整理.揀集內組 import 揀集內組
+from 臺灣言語工具.語音辨識.HTK工具.HTK辨識模型訓練 import HTK辨識模型訓練
+from bizu.參數 import wav音檔目錄
 
 
 class 切錄音檔(程式腳本):
@@ -38,6 +40,15 @@ class 切錄音檔(程式腳本):
         makedirs(暫存目錄, exist_ok=True)
         cls._辨識(句資料, join(暫存目錄, '句'))
         cls._辨識(詞資料, join(暫存目錄, '詞'))
+
+    @classmethod
+    def _HTK切音(cls):
+        源頭 = join(join(dirname(abspath(__file__)), '暫存'), '句')
+        音檔目錄 = wav音檔目錄
+        標仔目錄 = join(源頭, '標仔')
+        音節聲韻對照檔 = join(源頭, '辭典.dict')
+        資料目錄 = join(源頭, 'HTK')
+        HTK辨識模型訓練.加短恬閣對齊(音檔目錄, 標仔目錄, 音節聲韻對照檔, 資料目錄)
 
     @classmethod
     def _辨識(cls, 資料, 暫存目錄):
@@ -69,7 +80,7 @@ class 切錄音檔(程式腳本):
                 臺語 = 逝[表格欄位['臺語譯解']]
                 這筆資料 = [
                     ('語詞編號', 語詞編號), ('臺語', 臺語),
-                    ('華語', 華語), ('Kaxabu',  Kaxabu)
+                    ('華語', 華語), ('Kaxabu', Kaxabu)
                 ]
             elif cls.編號開始.search(語詞編號):
                 這筆資料 = [('語詞編號', 語詞編號)]
