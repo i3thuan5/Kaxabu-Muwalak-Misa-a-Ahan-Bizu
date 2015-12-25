@@ -30,3 +30,23 @@
 ```bash
 mkdir wav ; find . -name '*mp3' | egrep -v "25|26" | awk '{print "avconv -i "$0" "$0}'| sed 's/3 \./3 wav/g' | sed 's/\.[^ 1-9]*mp3$/.wav/g' | bash
 ```
+
+### 下載相關資料
+華語辭典
+```
+git clone https://github.com/g0v/moedict-data.git
+```
+
+### 設定python環境
+```
+virtualenv --python=python3 venv
+. venv/bin/activate
+pip install xlrd
+```
+
+### 設定參數
+改`bizu/參數.py`
+```
+xls所在 = '路徑/《噶哈巫語分類辭典》EXCEL版本.xls'
+教育部重編國語辭典json所在 = 'moedict-data路徑/dict-revised.json'
+```
