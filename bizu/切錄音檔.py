@@ -67,11 +67,9 @@ class 切錄音檔(程式腳本):
         for 第幾個, 資料 in enumerate(表格.row_values(0)):
             表格欄位[資料] = 第幾個
         句資料 = OrderedDict()
-        詞資料 = OrderedDict()
         for 編號 in range(1, 25):
             編號字串 = '{:02}'.format(編號)
             句資料[編號字串] = []
-            詞資料[編號字串] = []
         for 第幾逝 in range(1, 表格.nrows):
             逝 = 表格.row_values(第幾逝)
             語詞編號 = 逝[表格欄位['語詞編號']].strip()
@@ -94,8 +92,14 @@ class 切錄音檔(程式腳本):
                     continue
             編號字串 = 語詞編號[:2]
             句資料[編號字串].append(這筆資料)
-            for 詞 in 這筆資料:
-                詞資料[編號字串].append([詞])
+
+        詞資料 = OrderedDict()
+        for 編號字串, 內容 in 句資料.items():
+            詞資料[編號字串] = []
+            for 這筆資料 in 內容:
+                for 詞 in 這筆資料:
+                    詞資料[編號字串].append([詞])
+
         return 句資料, 詞資料
 
     @classmethod
