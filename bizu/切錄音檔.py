@@ -28,10 +28,10 @@ from 臺灣言語工具.解析整理.揀集內組 import 揀集內組
 from 臺灣言語工具.語音辨識.HTK工具.HTK辨識模型訓練 import HTK辨識模型訓練
 from bizu.參數 import wav音檔目錄
 from 臺灣言語工具.基本元素.公用變數 import 標點符號
+from bizu.標題對應 import 標題對應
 
 
 class 切錄音檔(程式腳本):
-    編號開始 = re.compile(r'^[0-9A-Z\-]+')
     華語辭典 = None
     華語解釋 = re.compile('[（(].*[）)]')
 
@@ -49,7 +49,7 @@ class 切錄音檔(程式腳本):
         標仔目錄 = join(源頭, '標仔')
         音節聲韻對照檔 = join(源頭, '辭典.dict')
         資料目錄 = join(源頭, 'HTK')
-        HTK辨識模型訓練.加短恬閣對齊(音檔目錄, 標仔目錄, 音節聲韻對照檔, 資料目錄)
+        HTK辨識模型訓練.對齊音節閣加短恬(音檔目錄, 標仔目錄, 音節聲韻對照檔, 資料目錄)
 
     @classmethod
     def _辨識(cls, 資料, 暫存目錄):
@@ -70,6 +70,7 @@ class 切錄音檔(程式腳本):
         for 編號 in range(1, 25):
             編號字串 = '{:02}'.format(編號)
             句資料[編號字串] = []
+        無編號資料 = []
         for 第幾逝 in range(1, 表格.nrows):
             逝 = 表格.row_values(第幾逝)
             語詞編號 = 逝[表格欄位['語詞編號']].strip()
@@ -83,14 +84,13 @@ class 切錄音檔(程式腳本):
                 ]
             else:
                 try:
-                    編號字串 = cls.編號開始.search(語詞編號).group(0)
-                    這筆資料 = [(
-                        '語詞編號',
-                        編號字串 + '輔元' * ((len(語詞編號) - len(編號字串)) // 3)
-                    )]
+                    無編號資料.append(標題對應[語詞編號])
                 except:
-                    continue
+                    pass
+                continue
             編號字串 = 語詞編號[:2]
+            句資料[編號字串].extend(無編號資料)
+            無編號資料 = []
             句資料[編號字串].append(這筆資料)
 
         詞資料 = OrderedDict()
