@@ -32,5 +32,5 @@ class 無音判斷單元試驗(TestCase):
     def test_相關係數(self):
         for 音框 in self.音檔.全部音框():
             相關係數 = 無音判斷.相關係數(音框)
-            self.assertGreaterEqual(相關係數, 0)
+            self.assertGreaterEqual(相關係數, -1)
             self.assertLessEqual(相關係數, 1)
