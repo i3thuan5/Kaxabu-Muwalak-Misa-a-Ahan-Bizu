@@ -3,8 +3,10 @@ from itertools import chain
 import json
 from os import makedirs
 from os.path import dirname, abspath, join
+from posix import listdir
 import re
 
+from praatinterface import PraatLoader
 from sklearn import svm
 import xlrd
 
@@ -33,7 +35,6 @@ from bizu.標題對應 import 標題對應
 from 臺灣言語工具.語音辨識.HTK工具.HTK辨識模型 import HTK辨識模型
 from 臺灣言語工具.語音辨識.聲音檔 import 聲音檔
 from 臺灣言語工具.語音辨識.恬音判斷 import 恬音判斷
-from posix import listdir
 
 a = 0
 
@@ -42,6 +43,7 @@ class 切錄音檔(程式腳本):
     華語辭典 = None
     華語解釋 = re.compile('[（(].*[）)]')
     專案目錄 = join(dirname(abspath(__file__)), '..')
+    查某查甫音懸門檻 = 170.0
 
     @classmethod
     def 切音檔(cls, 暫存目錄=join(專案目錄, '暫存')):
@@ -79,34 +81,36 @@ class 切錄音檔(程式腳本):
         cls._訓練恬音模型()
         for 編號 in range(1, 25):
             cls._無音切一個細音檔(編號)
+            cls._照性別合一組音檔(編號)
 
     @classmethod
     def _無音切一個細音檔(cls, 編號):
         音檔 = 聲音檔.對檔案讀(join(wav音檔目錄, '{:02}.wav'.format(編號)))
 
         def 有音無(音框):
+            #             print(音框)
             特徵 = 恬音判斷.算特徵參數(音框)
 # 結果=特徵['平方平均'] >= 2000.0 and 特徵['過零機率'] < 0.25 # and 特徵['相關係數'] > 0.70
             標仔 = cls.恬音模型.predict([cls._特徵轉陣列(特徵)])[0]
             結果 = (標仔 == '有')
             global a
-            print(a * 0.02, 結果, 特徵)
+#             print(a * 0.02, 結果, 特徵)
             a += 1
             return 結果
 
         細音檔陣列 = 音檔.照函式切音(有音無)
-        暫存目錄 = join(dirname(abspath(__file__)), '..', 'split')
-        音檔目錄 = 程式腳本._細項目錄(暫存目錄, '{:02}'.format(編號))
+        音檔目錄 = cls._編號分割音檔目錄(編號)
+        makedirs(音檔目錄, exist_ok=True)
         號碼 = 0
         資料 = b''
         for 細音檔 in 細音檔陣列:
-            資料 += 細音檔.wav音值資料()
-            if 細音檔.時間長度() >= 1.0:
+            if 細音檔.時間長度() >= 0.5 and len(資料) > 0:
                 合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
                 with open(join(音檔目錄, '{:04}.wav'.format(號碼)), 'wb') as 檔案:
                     檔案.write(合音檔.wav格式資料())
                 資料 = b''
                 號碼 += 1
+            資料 += 細音檔.wav音值資料()
         if len(資料) > 音檔.一秒位元組數():
             合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
             with open(join(音檔目錄, '{:04}.wav'.format(號碼)), 'wb') as 檔案:
@@ -115,40 +119,56 @@ class 切錄音檔(程式腳本):
         print(編號, '到', 號碼 - 1)
 
     @classmethod
-    def _照性別合全部音檔(cls):
-        for 編號 in range(1, 25):
-            cls._照性別合一組音檔(編號)
+    def _編號分割音檔目錄(cls, 編號):
+        return join(cls.專案目錄, '音檔分割', '{:02}'.format(編號))
 
     @classmethod
     def _照性別合一組音檔(cls, 編號):
-        編號音檔目錄 = join(cls.專案目錄, 'split', '{:02}'.format(編號))
+        編號音檔目錄 = cls._編號分割音檔目錄(編號)
         合做伙目錄 = join(cls.專案目錄, '音檔合做伙')
         makedirs(合做伙目錄, exist_ok=True)
-        with open(join(編號音檔目錄, 'gender_result.json')) as 檔案:
-            性別 = json.load(檔案)
-        這馬查甫查某 = None
+        頂一個查甫查某 = None
         資料 = b''
         號碼 = 0
         音檔 = 聲音檔.對檔案讀(join(編號音檔目錄, '0000.wav'))
         for 檔名 in sorted(listdir(編號音檔目錄)):
             if re.match('\d+.wav\Z', 檔名):
-                if 這馬查甫查某 != 性別[檔名]:
-                    if 這馬查甫查某 is not None:
+                這馬查甫查某 = cls._檢查查甫查某(join(編號音檔目錄, 檔名))
+                if 頂一個查甫查某 != 這馬查甫查某:
+                    if 頂一個查甫查某 is not None:
                         合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
                         with open(join(
-                                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 這馬查甫查某)), 'wb'
+                                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 頂一個查甫查某)), 'wb'
                         ) as 檔案:
                             檔案.write(合音檔.wav格式資料())
                         資料 = b''
                         號碼 += 1
-                    這馬查甫查某 = 性別[檔名]
+                    頂一個查甫查某 = 這馬查甫查某
                 音檔 = 聲音檔.對檔案讀(join(編號音檔目錄, 檔名))
-                資料 += 音檔.wav格式資料()
+                資料 += 音檔.wav音值資料()
         合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
         with open(join(
-                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 這馬查甫查某)), 'wb'
+                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 頂一個查甫查某)), 'wb'
         ) as 檔案:
             檔案.write(合音檔.wav格式資料())
+
+    @classmethod
+    def _檢查查甫查某(cls, 檔名):
+        pl = PraatLoader()
+        音懸結果 = pl.run_script('pitch.praat', 檔名)
+        查某 = 0
+        查甫 = 0
+#         print(檔名, 音懸結果)
+        for 資料 in pl.read_praat_out(音懸結果).values():
+            音懸 = 資料['Pitch']
+            if 音懸 != 0:
+                if 音懸 > cls.查某查甫音懸門檻:
+                    查某 += 1
+                else:
+                    查甫 += 1
+        if 查某 >= 查甫:
+            return '查某'
+        return '查甫'
 
     @classmethod
     def _訓練HTK(cls, 源頭):
