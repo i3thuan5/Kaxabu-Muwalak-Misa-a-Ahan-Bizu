@@ -1,0 +1,5 @@
+numpy==1.10.2
+scikit-learn==0.17
+scipy==0.16.1
+tai5-uan5-gian5-gi2-kang1-ku7==0.5.12
+xlrd==0.9.4

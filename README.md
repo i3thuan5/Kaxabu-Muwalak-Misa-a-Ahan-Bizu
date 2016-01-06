@@ -39,9 +39,10 @@ git clone https://github.com/g0v/moedict-data.git
 
 ### 設定python環境
 ```
+sudo apt-get install liblapack-dev libblas-dev swig gfortran -y
 virtualenv --python=python3 venv
 . venv/bin/activate
-pip install xlrd
+pip install -r requirements.txt 
 ```
 
 ### 設定參數

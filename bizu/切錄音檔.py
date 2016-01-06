@@ -1,9 +1,11 @@
+from collections import OrderedDict
 from itertools import chain
 import json
 from os import makedirs
 from os.path import dirname, abspath, join
 import re
 
+from sklearn import svm
 import xlrd
 
 
@@ -20,7 +22,6 @@ from 臺灣言語工具.基本元素.詞 import 詞
 from 臺灣言語工具.音標系統.官話.官話注音符號 import 官話注音符號
 from 臺灣言語工具.系統整合.程式腳本 import 程式腳本
 from 臺灣言語工具.解析整理.文章粗胚 import 文章粗胚
-from collections import OrderedDict
 from 臺灣言語工具.斷詞.拄好長度辭典揣詞 import 拄好長度辭典揣詞
 from 臺灣言語工具.解析整理.集內組照排 import 集內組照排
 from 臺灣言語工具.解析整理.物件譀鏡 import 物件譀鏡
@@ -30,19 +31,124 @@ from bizu.參數 import wav音檔目錄
 from 臺灣言語工具.基本元素.公用變數 import 標點符號
 from bizu.標題對應 import 標題對應
 from 臺灣言語工具.語音辨識.HTK工具.HTK辨識模型 import HTK辨識模型
+from 臺灣言語工具.語音辨識.聲音檔 import 聲音檔
+from 臺灣言語工具.語音辨識.恬音判斷 import 恬音判斷
+from posix import listdir
+
+a = 0
 
 
 class 切錄音檔(程式腳本):
     華語辭典 = None
     華語解釋 = re.compile('[（(].*[）)]')
+    專案目錄 = join(dirname(abspath(__file__)), '..')
 
     @classmethod
-    def 切音檔(cls, 暫存目錄=join(dirname(abspath(__file__)), '暫存')):
+    def 切音檔(cls, 暫存目錄=join(專案目錄, '暫存')):
         句資料, 詞資料 = cls._xls轉語句格式()
         makedirs(暫存目錄, exist_ok=True)
         cls._辨識(句資料, join(暫存目錄, '句'))
         cls._辨識(詞資料, join(暫存目錄, '詞'))
         cls._訓練HTK(暫存目錄)
+
+    @classmethod
+    def _訓練恬音模型(cls):
+        訓練目錄 = join(cls.專案目錄, '訓練音檔')
+        題目 = []
+        答案 = []
+        for 類型 in sorted(listdir(訓練目錄)):
+            類型目錄 = join(訓練目錄, 類型)
+            for 音檔 in sorted(listdir(類型目錄)):
+                音檔所在 = join(類型目錄, 音檔)
+                音檔 = 聲音檔.對檔案讀(音檔所在)
+                for 音框 in 音檔.全部音框():
+                    特徵 = 恬音判斷.算特徵參數(音框)
+                    題目.append(cls._特徵轉陣列(特徵))
+                    答案.append(類型)
+        cls.恬音模型 = svm.SVC()
+        cls.恬音模型.fit(題目, 答案)
+
+    @classmethod
+    def _特徵轉陣列(cls, 特徵):
+        if 特徵['相關係數'] is not None:
+            return [特徵['平方平均'], 特徵['過零機率'], 特徵['相關係數']]
+        return [特徵['平方平均'], 特徵['過零機率'], 100.0]
+
+    @classmethod
+    def _無音切全部細音檔(cls):
+        cls._訓練恬音模型()
+        for 編號 in range(1, 25):
+            cls._無音切一個細音檔(編號)
+
+    @classmethod
+    def _無音切一個細音檔(cls, 編號):
+        音檔 = 聲音檔.對檔案讀(join(wav音檔目錄, '{:02}.wav'.format(編號)))
+
+        def 有音無(音框):
+            特徵 = 恬音判斷.算特徵參數(音框)
+# 結果=特徵['平方平均'] >= 2000.0 and 特徵['過零機率'] < 0.25 # and 特徵['相關係數'] > 0.70
+            標仔 = cls.恬音模型.predict([cls._特徵轉陣列(特徵)])[0]
+            結果 = (標仔 == '有')
+            global a
+            print(a * 0.02, 結果, 特徵)
+            a += 1
+            return 結果
+
+        細音檔陣列 = 音檔.照函式切音(有音無)
+        暫存目錄 = join(dirname(abspath(__file__)), '..', 'split')
+        音檔目錄 = 程式腳本._細項目錄(暫存目錄, '{:02}'.format(編號))
+        號碼 = 0
+        資料 = b''
+        for 細音檔 in 細音檔陣列:
+            資料 += 細音檔.wav音值資料()
+            if 細音檔.時間長度() >= 1.0:
+                合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
+                with open(join(音檔目錄, '{:04}.wav'.format(號碼)), 'wb') as 檔案:
+                    檔案.write(合音檔.wav格式資料())
+                資料 = b''
+                號碼 += 1
+        if len(資料) > 音檔.一秒位元組數():
+            合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
+            with open(join(音檔目錄, '{:04}.wav'.format(號碼)), 'wb') as 檔案:
+                檔案.write(合音檔.wav格式資料())
+            號碼 += 1
+        print(編號, '到', 號碼 - 1)
+
+    @classmethod
+    def _照性別合全部音檔(cls):
+        for 編號 in range(1, 25):
+            cls._照性別合一組音檔(編號)
+
+    @classmethod
+    def _照性別合一組音檔(cls, 編號):
+        編號音檔目錄 = join(cls.專案目錄, 'split', '{:02}'.format(編號))
+        合做伙目錄 = join(cls.專案目錄, '音檔合做伙')
+        makedirs(合做伙目錄, exist_ok=True)
+        with open(join(編號音檔目錄, 'gender_result.json')) as 檔案:
+            性別 = json.load(檔案)
+        這馬查甫查某 = None
+        資料 = b''
+        號碼 = 0
+        音檔 = 聲音檔.對檔案讀(join(編號音檔目錄, '0000.wav'))
+        for 檔名 in sorted(listdir(編號音檔目錄)):
+            if re.match('\d+.wav\Z', 檔名):
+                if 這馬查甫查某 != 性別[檔名]:
+                    if 這馬查甫查某 is not None:
+                        合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
+                        with open(join(
+                                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 這馬查甫查某)), 'wb'
+                        ) as 檔案:
+                            檔案.write(合音檔.wav格式資料())
+                        資料 = b''
+                        號碼 += 1
+                    這馬查甫查某 = 性別[檔名]
+                音檔 = 聲音檔.對檔案讀(join(編號音檔目錄, 檔名))
+                資料 += 音檔.wav格式資料()
+        合音檔 = 聲音檔.對參數轉(音檔.一點幾位元組, 音檔.一秒幾點, 音檔.幾个聲道, 資料)
+        with open(join(
+                合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 這馬查甫查某)), 'wb'
+        ) as 檔案:
+            檔案.write(合音檔.wav格式資料())
 
     @classmethod
     def _訓練HTK(cls, 源頭):
