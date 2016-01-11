@@ -132,7 +132,7 @@ class 切錄音檔(程式腳本):
         for 檔名 in sorted(listdir(編號音檔目錄)):
             if re.match('\d+.wav\Z', 檔名):
                 這馬查甫查某 = cls._檢查查甫查某(join(編號音檔目錄, 檔名))
-                if 頂一個查甫查某 != 這馬查甫查某:
+                if 這馬查甫查某 is not None and 頂一個查甫查某 != 這馬查甫查某:
                     if 頂一個查甫查某 is not None:
                         with open(join(
                                 合做伙目錄, '{:02}-{:04}-{}.wav'.format(編號, 號碼, 頂一個查甫查某)), 'wb'
@@ -162,6 +162,9 @@ class 切錄音檔(程式腳本):
                     查某 += 1
                 else:
                     查甫 += 1
+        # 一個0.001秒
+        if 查某 + 查甫 <= 50:
+            return None
         if 查某 >= 查甫:
             return '查某'
         return '查甫'
