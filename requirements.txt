@@ -2,5 +2,5 @@ numpy
 python-praat-scripts==0.2.2
 scikit-learn==0.17
 scipy
-tai5-uan5-gian5-gi2-kang1-ku7==0.5.15
+tai5-uan5-gian5-gi2-kang1-ku7==0.5.16
 xlrd==0.9.4
