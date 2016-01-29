@@ -1,0 +1,12 @@
+.app.bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app.bar .title {
+  display: block;
+  margin: 0;
+  width: 300px;
+  height: 72px;
+}
+
