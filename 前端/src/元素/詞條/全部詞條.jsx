@@ -40,7 +40,7 @@ export default Transmit.createContainer(全部詞條, {
   queries: {
     辭典資料({ 後端網址, 關鍵字 }) {
       if (後端網址 === undefined)
-        return Promise.resolve({'符合資料':[]});
+        return Promise.resolve({'符合資料':[{'語詞編號':'載入中……'}]});
       return superagent.get(後端網址 + '查')
           .query({ 關鍵字 })
           .then(({ body }) => (
