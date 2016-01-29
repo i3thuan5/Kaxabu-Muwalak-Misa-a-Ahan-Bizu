@@ -4,7 +4,7 @@ from 族語辭典.models import 分類辭典
 
 
 def _整理詞條(詞條要求):
-    return list(詞條要求.values()[:200])
+    return list(詞條要求.values()[:])
 
 
 def 顯示全部資料(request):
