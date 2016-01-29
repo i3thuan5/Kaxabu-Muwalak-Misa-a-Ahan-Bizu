@@ -5,15 +5,21 @@ import {Link} from 'react-router';
 import './導覽.css';
 
 class ToLam extends React.Component {
+  更新詞(e)
+  {
+    let 關鍵字 = e.target.value;
+    this.props.跳到查詞(關鍵字);
+  }
+
   render () {
     return (
       <div className='app bar container'>
-        <h1 className='title segment'>
+        <h1 className='title'>
           <Link to='/'>
             Kaxabu分類辭典
-          </Link>
+            </Link>
         </h1>
-        <div></div>
+        <input id='關鍵字' defaultValue={this.props.關鍵字} onKeyUp={this.更新詞.bind(this)} /> 
       </div>
       );
   }

@@ -12,16 +12,12 @@ Debug.enable('kaxabu:*');
 
 const root = document.getElementById('app');
 
-//if (window.location.pathname === '/') {
-//render(<HuanGing/>, root)
-//} else {
 let history = createBrowserHistory();
 render(
   <Router history={history}>
           <Route path='/' component={網站}>
-              <IndexRoute component={查}/>
-              <Route path='/(:word)' component={查}/>
+              <IndexRoute/>
+              <Route path='/(:word)'/>
           </Route>
-      </Router>, root);
-
-//}
+      </Router>, root
+);
