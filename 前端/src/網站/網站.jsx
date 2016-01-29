@@ -10,7 +10,7 @@ class 網站 extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      後端網址: 'http://localhost:8000/',
+      後端網址: 'http://db.kaxabu.xn--v0qr21b.xn--kpry57d/',
       關鍵字:props.params.word || '',
     };
   }
