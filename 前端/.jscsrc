@@ -1,9 +1,0 @@
-{
-  "preset": "airbnb",
-  "fileExtensions": [
-    ".js",
-    ".jsx"
-  ],
-  "esnext": true,
-  "requireCamelCaseOrUpperCaseIdentifiers": false
-}
