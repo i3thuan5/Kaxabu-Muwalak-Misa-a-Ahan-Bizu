@@ -1,27 +1,27 @@
 {
-  "name": "ing7",
+  "name": "kaxabu",
   "version": "0.0.1",
-  "description": "臺灣言語服務用法",
+  "description": "Kaxabu分類辭典",
   "scripts": {
     "start": "node devServer.js",
     "test": "jscs *.js src/",
     "reformat": "jscs -x *.js src/",
-    "build": "mkdir -p build;rm -f build/* && NODE_ENV=production webpack --config webpack.config.prod.js && (echo 'xn--jny.xn--v0qr21b.xn--kpry57d' > build/CNAME) && cp index.html build/ && cp index.html build/404.html",
+    "build": "mkdir -p build;rm -f build/* && NODE_ENV=production webpack --config webpack.config.prod.js && (echo 'kaxabu.xn--v0qr21b.xn--kpry57d' > build/CNAME) && cp index.html build/ && cp index.html build/404.html",
     "deploy": "npm run build && gh-pages -d build/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sih4sing5hong5/tai5-uan5_gian5-gi2_ing7.git"
+    "url": "https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu.git"
   },
   "keywords": [
-    "臺語"
+    "Kaxabu"
   ],
   "author": "薛丞宏",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sih4sing5hong5/tai5-uan5_gian5-gi2_ing7/issues"
+    "url": "https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu/issues"
   },
-  "homepage": "https://github.com/sih4sing5hong5/tai5-uan5_gian5-gi2_ing7",
+  "homepage": "https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu",
   "dependencies": {
   },
   "devDependencies": {
