@@ -18,22 +18,17 @@ class 查 extends React.Component {
   }
 
   constructor (props) {
-    super(props);
-    this.state = {
-      關鍵字:this.props.params.word || '',
-    };
+    super(props)
   }
 
   跳到查詞(e)
   {
     關鍵字 = e.target.value;
-    debug(關鍵字)
-    this.setState({ 關鍵字 });
     this.props.跳到查詞(關鍵字);
   }
 
   render () {
-    let { 關鍵字 } = this.state;
+    let { 關鍵字 } = this.props;
     return (
         <div className='main container'>
         <input id='關鍵字' defaultValue={關鍵字} onKeyUp={this.跳到查詞.bind(this)} />
