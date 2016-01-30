@@ -1,8 +1,15 @@
 # Kaxabu Muwalak Misa A Ahan Bizu
 噶哈巫語分類辭典，於2015/11/29在守城新公廳[發表](https://www.facebook.com/events/1662129040716123/)。
 
+## 做法
+調整原始檔音量
+```
+sudo apt-get install normalize-audio -y
+find . -type f -exec normalize-audio {} \;
+```
 
-## 切錄音檔
+
+## 切錄音檔（原本的失敗構想）
 希望會使逐句分開，逐詞嘛分開，所以愛做兩擺。
 
 1. xls檔
@@ -55,5 +62,5 @@ wav音檔目錄= '路徑/wav/'
 
 ### 執行
 ```
-PYTHONPATH=../tai5-uan5_gian5-gi2_kang1-ku7/ python 走.py
+python 走.py
 ```
