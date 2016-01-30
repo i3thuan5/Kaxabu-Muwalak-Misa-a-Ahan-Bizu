@@ -19,9 +19,8 @@ class 全部詞條 extends React.Component {
   }
 
   render () {
-    debug(this.props.辭典資料);
     let 詞條陣列 = this.props.辭典資料.符合資料.map((資料)=>(
-        <詞條 key={資料.語詞編號} 資料={資料}/>)
+        <詞條 key={資料.語詞編號} 資料={資料} 換音檔={this.props.換音檔}/>)
       );
     return (
         <div className='main container'>
