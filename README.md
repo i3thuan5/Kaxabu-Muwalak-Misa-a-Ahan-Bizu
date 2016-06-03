@@ -47,8 +47,7 @@ git clone https://github.com/g0v/moedict-data.git
 ### 設定python環境
 ```
 sudo apt-get install -y liblapack-dev libblas-dev gfortran praat
-virtualenv --python=python3 venv
-. venv/bin/activate
+virtualenv venv --python=python3 ; . venv/bin/activate ; pip install --upgrade pip
 pip install -r requirements.txt 
 ```
 
@@ -64,3 +63,12 @@ wav音檔目錄= '路徑/wav/'
 ```
 python 走.py
 ```
+
+### 人工檢查音檔有切著無
+```
+python bizu/敆音檔.py
+```
+才去`檢查音檔有切好無`照分類聽
+* 聽編號佮華語是毋是學姐的聲
+* 臺語佮kaxabu是長老的聲
+
