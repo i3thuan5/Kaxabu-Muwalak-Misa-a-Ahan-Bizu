@@ -41,6 +41,8 @@ class 網站 extends React.Component {
           <全部詞條 後端網址={this.state.後端網址} 關鍵字={this.state.關鍵字} 換音檔={this.換音檔.bind(this)}/>
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
+              <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
+              <li className='item'><a href='https://www.facebook.com/kaxabu/?fref=ts'>埔里四庄番-噶哈巫族FB</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu'>GitHub</a></li>
             </ul> 
           </footer>
