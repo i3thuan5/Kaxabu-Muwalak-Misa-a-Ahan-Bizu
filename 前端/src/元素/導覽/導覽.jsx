@@ -18,7 +18,7 @@ class ToLam extends React.Component {
       <div className='app bar container'>
         <h1 className='title'>
             Kaxabu Muwalak Misa A Ahan Bizu<br/>
-            Kaxabu分類辭典
+            噶哈巫語分類辭典
         </h1>
         <input id='關鍵字' placeholder='輸入關鍵字……'
           defaultValue={this.props.關鍵字} onKeyUp={this.更新詞.bind(this)} /> 
