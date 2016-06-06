@@ -6,20 +6,20 @@ from posix import listdir
 
 def 接檔案(原本音檔, 目錄音檔):
     makedirs(目錄音檔, exist_ok=True)
-    for 資料夾 in listdir(原本音檔):
+    for 資料夾 in sorted(listdir(原本音檔)):
         所在 = join(原本音檔, 資料夾)
         if isdir(所在):
-            全部音檔 = []
-            for 第幾個, 檔案 in enumerate(sorted(listdir(所在))):
-                這個音檔 = 聲音檔.對檔案讀(join(所在, 檔案))
-                try:
-                    全部音檔[第幾個 % 4] = 全部音檔[第幾個 % 4].接(這個音檔)
-                except:
-                    全部音檔.append(這個音檔)
-            for 第幾個, 合音檔 in enumerate(全部音檔):
+            全部音檔合起來 = None
+            for 第幾個 in range(4):
+                for 檔案 in sorted(listdir(所在))[第幾個::4]:
+                    這個音檔 = 聲音檔.對檔案讀(join(所在, 檔案))
+                    try:
+                        全部音檔合起來 = 全部音檔合起來.接(這個音檔)
+                    except:
+                        全部音檔合起來 = 這個音檔
                 結果檔案 = join(目錄音檔, '{}-{}.wav'.format(資料夾, 第幾個))
                 with open(結果檔案, 'wb') as 檔案:
-                    檔案.write(合音檔.wav格式資料())
+                    檔案.write(全部音檔合起來.wav格式資料())
 
 if __name__ == '__main__':
     接檔案(
