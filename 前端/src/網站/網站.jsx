@@ -43,7 +43,8 @@ class 網站 extends React.Component {
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
               <li className='item'><a href='https://www.facebook.com/kaxabu/?fref=ts'>埔里四庄番-噶哈巫族FB</a></li>
-              <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu'>GitHub</a></li>
+              <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu/blob/master/README.md'>網站資訊</a></li>
+              <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu'>Github</a></li>
             </ul> 
           </footer>
         </div>
