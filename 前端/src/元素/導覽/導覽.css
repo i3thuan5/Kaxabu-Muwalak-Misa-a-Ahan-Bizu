@@ -3,6 +3,11 @@
   justify-content: space-between;
 }
 
+.app .bar.container .fixed {
+  position: fixed;
+  justify-content: space-between;
+}
+
 .app.bar .title {
   display: block;
   margin: 0;
