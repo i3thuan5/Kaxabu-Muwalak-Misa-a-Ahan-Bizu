@@ -13,7 +13,7 @@ class 網站 extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      後端網址: '//dbkaxabu.xn--v0qr21b.xn--kpry57d/',
+      後端網址: 'https://dbkaxabu.xn--v0qr21b.xn--kpry57d/',
       關鍵字:props.params.word || '',
       語詞編號: '',
       內容:'',
