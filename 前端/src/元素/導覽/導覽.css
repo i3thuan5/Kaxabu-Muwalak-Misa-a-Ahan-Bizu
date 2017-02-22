@@ -5,7 +5,8 @@
 
 .app .bar.container .fixed {
   position: fixed;
-  justify-content: space-between;
+  right: 20vh;
+  top: 1em;
 }
 
 .app.bar .title {

@@ -19,15 +19,17 @@ export default class 音檔 extends React.Component {
     if (語詞編號 != '' && 內容 != '')
     {
       return (
-          <audio id='音檔' controls autoPlay>
-            <source src={後端網址 + '聽?語詞編號=' + 語詞編號 + '&內容=' + 內容} type="audio/wav"/>
+        <audio id='音檔' controls autoPlay>
+           <source src={後端網址 + '聽?語詞編號=' + 語詞編號 + '&內容=' + 內容} type="audio/wav"/>
         </audio>
       );
     } else
     {
       return (
-        <div>請選擇音檔！！</div>
-        );
+        <div className="ui message">
+          <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
+        </div>
+      );
     }
   }
 }
