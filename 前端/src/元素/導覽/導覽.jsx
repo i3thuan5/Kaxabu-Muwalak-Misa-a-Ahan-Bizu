@@ -37,10 +37,12 @@ export default class 導覽 extends React.Component {
             噶哈巫語分類辭典
         </h1>
         <div className='fixed'>
+          <div className='ui input'>
           <input id='關鍵字' placeholder='輸入關鍵字……'
             defaultValue={this.props.關鍵字}
             onKeyDown={this.更新詞.bind(this)}
             ref='Tshue' />
+          </div>
           <音檔 後端網址={this.props.後端網址} 語詞編號={this.props.語詞編號} 內容={this.props.內容}/>
         </div>
         </div>
