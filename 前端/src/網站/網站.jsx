@@ -21,6 +21,8 @@ export default class 網站 extends React.Component {
 
   跳到查詞 (關鍵字) {
     this.setState({ 關鍵字:關鍵字, 語詞編號:'', 內容:'' });
+    debug('跳到查詞');
+    debug('%o', this.props.history);
     this.props.history.replaceState(null,    '/' + 關鍵字);
   }
 
