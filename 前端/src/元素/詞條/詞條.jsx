@@ -4,7 +4,7 @@ import Debug from 'debug';
 
 var debug = Debug('kaxabu:詞條');
 
-class 詞條 extends React.Component {
+export default class 詞條 extends React.Component {
 
   點音檔(內容, c)
   {

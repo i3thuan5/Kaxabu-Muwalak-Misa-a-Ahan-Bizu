@@ -1,11 +1,10 @@
 
 import React from 'react';
-import superagent from 'superagent-bluebird-promise';
 import Debug from 'debug';
 
 var debug = Debug('kaxabu:音檔');
 
-class 音檔 extends React.Component {
+export default class 音檔 extends React.Component {
 
   componentDidUpdate()
   {
