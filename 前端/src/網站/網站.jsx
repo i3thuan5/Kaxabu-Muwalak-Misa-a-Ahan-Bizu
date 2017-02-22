@@ -1,5 +1,4 @@
 import React from 'react';
-import Transmit from 'react-transmit';
 import Router from 'react-router';
 
 import 導覽 from '../元素/導覽/導覽';
@@ -8,7 +7,7 @@ import Debug from 'debug';
 
 var debug = Debug('kaxabu:網站');
 
-class 網站 extends React.Component {
+export default class 網站 extends React.Component {
 
   constructor (props) {
     super(props);
@@ -22,6 +21,8 @@ class 網站 extends React.Component {
 
   跳到查詞 (關鍵字) {
     this.setState({ 關鍵字:關鍵字, 語詞編號:'', 內容:'' });
+    debug('跳到查詞');
+    debug('%o', this.props.history);
     this.props.history.replaceState(null,    '/' + 關鍵字);
   }
 
@@ -45,11 +46,9 @@ class 網站 extends React.Component {
               <li className='item'><a href='https://www.facebook.com/kaxabu/?fref=ts'>埔里四庄番-噶哈巫族FB</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu/blob/master/README.md'>網站資訊</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu'>Github</a></li>
-            </ul> 
+            </ul>
           </footer>
         </div>
       );
   }
 }
-
-export default Transmit.createContainer(網站, { queries: {} });

@@ -1,20 +1,10 @@
 
 import React from 'react';
-import Transmit from 'react-transmit';
-import {Link} from 'react-router';
-import superagent from 'superagent-bluebird-promise';
 import Debug from 'debug';
 
 var debug = Debug('kaxabu:詞條標題');
 
-class 詞條標題 extends React.Component {
-
-  componentWillMount () { this.props.setQueryParams(this.props); }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.params === this.props.params) return;
-    this.props.setQueryParams(nextProps);
-  }
+export default class 詞條標題 extends React.Component {
 
   render () {
     return (
@@ -30,8 +20,3 @@ class 詞條標題 extends React.Component {
       );
   }
 }
-
-export default Transmit.createContainer(詞條標題, {
-  queries: {
-  },
-});
