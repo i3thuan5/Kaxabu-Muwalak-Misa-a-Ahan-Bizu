@@ -1,7 +1,5 @@
 
 import React from 'react';
-import Transmit from 'react-transmit';
-import {Link} from 'react-router';
 import superagent from 'superagent-bluebird-promise';
 import Debug from 'debug';
 
@@ -9,17 +7,11 @@ var debug = Debug('kaxabu:音檔');
 
 class 音檔 extends React.Component {
 
-  componentWillMount () { this.props.setQueryParams(this.props); }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.params === this.props.params) return;
-    this.props.setQueryParams(nextProps);
-  }
-
   componentDidUpdate()
   {
-    let 音檔=document.getElementById('音檔');
+    let 音檔 = document.getElementById('音檔');
     音檔.load();
+
     //音檔.play();
   }
 
@@ -40,8 +32,3 @@ class 音檔 extends React.Component {
     }
   }
 }
-
-export default Transmit.createContainer(音檔, {
-  queries: {
-  },
-});
