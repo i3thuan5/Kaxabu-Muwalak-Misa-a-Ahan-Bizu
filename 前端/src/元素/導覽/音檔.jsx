@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Debug from 'debug';
+import {後端網址} from '../../後端';
 
 var debug = Debug('kaxabu:音檔');
 
@@ -10,12 +11,10 @@ export default class 音檔 extends React.Component {
   {
     let 音檔 = document.getElementById('音檔');
     音檔.load();
-
-    //音檔.play();
   }
 
   render () {
-    let { 後端網址, 語詞編號, 內容 } = this.props;
+    let { 語詞編號, 內容 } = this.props;
     if (語詞編號 != '' && 內容 != '')
     {
       return (
