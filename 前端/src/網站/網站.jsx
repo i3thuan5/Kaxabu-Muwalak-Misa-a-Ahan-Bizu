@@ -1,8 +1,8 @@
 import React from 'react';
 import Router from 'react-router';
-
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
+import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
 import Debug from 'debug';
 
 var debug = Debug('kaxabu:網站');
@@ -12,7 +12,6 @@ export default class 網站 extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      後端網址: 'https://dbkaxabu.xn--v0qr21b.xn--kpry57d/',
       關鍵字:props.params.word || '',
       語詞編號: '',
       內容:'',
@@ -21,14 +20,11 @@ export default class 網站 extends React.Component {
 
   跳到查詞 (關鍵字) {
     this.setState({ 關鍵字:關鍵字, 語詞編號:'', 內容:'' });
-    debug('跳到查詞');
-    debug('%o', this.props.history);
     this.props.history.replaceState(null,    '/' + 關鍵字);
   }
 
   換音檔(語詞編號, 內容)
   {
-    debug(語詞編號, 內容);
     this.setState({ 語詞編號, 內容 });
   }
 
@@ -36,10 +32,16 @@ export default class 網站 extends React.Component {
     return (
         <div className='app background'>
           <header className='app header'>
-            <導覽 跳到查詞={this.跳到查詞.bind(this)} 關鍵字={this.state.關鍵字}
-              後端網址={this.state.後端網址} 語詞編號={this.state.語詞編號} 內容={this.state.內容}/>
+            <導覽
+              跳到查詞={this.跳到查詞.bind(this)}
+              關鍵字={this.state.關鍵字}
+              語詞編號={this.state.語詞編號}
+              內容={this.state.內容}/>
           </header>
-          <全部詞條 後端網址={this.state.後端網址} 關鍵字={this.state.關鍵字} 換音檔={this.換音檔.bind(this)}/>
+          <全部詞條
+            換音檔={this.換音檔.bind(this)}
+            variables={{ 關鍵字: this.state.關鍵字 }}
+            renderLoading={<詞條區塊/>}/>
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
