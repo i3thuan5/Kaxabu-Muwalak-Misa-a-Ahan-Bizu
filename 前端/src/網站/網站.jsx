@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
+import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
 import Debug from 'debug';
 
 var debug = Debug('kaxabu:網站');
@@ -39,7 +40,8 @@ export default class 網站 extends React.Component {
           </header>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
-            variables={{ 關鍵字: this.state.關鍵字 }}/>
+            variables={{ 關鍵字: this.state.關鍵字 }}
+            renderLoading={<詞條區塊/>}/>
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>

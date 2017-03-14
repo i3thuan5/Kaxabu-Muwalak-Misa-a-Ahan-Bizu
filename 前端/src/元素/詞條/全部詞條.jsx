@@ -6,6 +6,7 @@ import Debug from 'debug';
 import 詞條 from './詞條';
 import 詞條標題 from './詞條標題';
 import { 後端網址 } from '../../後端';
+import 詞條區塊 from '../詞條區塊/詞條區塊';
 
 var debug = Debug('kaxabu:全部詞條');
 
@@ -42,8 +43,9 @@ class 全部詞條 extends React.Component {
     let 詞條陣列 = this.props.辭典資料.符合資料.slice(0, 全開).map((資料)=>(
      <詞條 key={資料.語詞編號} 資料={資料} 換音檔={this.props.換音檔}/>)
     );
+
     return (
-        <div className='main container'>
+      <詞條區塊>
             <table>
                 <tbody>
                   <詞條標題/>
@@ -51,7 +53,7 @@ class 全部詞條 extends React.Component {
                 </tbody>
             </table>
             {this.看閣較濟()}
-        </div>
+      </詞條區塊>
           );
   }
 }
