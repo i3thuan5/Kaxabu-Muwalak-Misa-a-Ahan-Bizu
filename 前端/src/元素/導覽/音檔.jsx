@@ -10,7 +10,9 @@ export default class 音檔 extends React.Component {
   componentDidUpdate()
   {
     let 音檔 = document.getElementById('音檔');
-    音檔.load();
+    if (音檔) {
+      音檔.load();
+    }
   }
 
   render () {
