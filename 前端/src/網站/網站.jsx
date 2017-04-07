@@ -12,7 +12,7 @@ export default class 網站 extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      關鍵字:props.params.word || '',
+      關鍵字: props.params.word || '',
       語詞編號: '',
       內容:'',
     };
@@ -40,7 +40,9 @@ export default class 網站 extends React.Component {
           </header>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
-            variables={{ 關鍵字: this.state.關鍵字 }}
+            variables={{ 關鍵字: this.state.關鍵字,
+              跳到查詞: this.跳到查詞.bind(this),
+             }}
             renderLoading={<詞條區塊/>}/>
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
