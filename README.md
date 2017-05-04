@@ -11,6 +11,10 @@
 * 出版年：2015年
 * ISBN：9789869248808
 
+## 辭典資料
+* 文本：`《噶哈巫語分類辭典》EXCEL版本.xls`
+* 聲音：[下載](https://www.dropbox.com/sh/8iqtr7eayb93lws/AAANlE-qleOKHIibQKnCBgVNa?dl=0)
+
 ## 相關連結
 * 2015/11/29在守城新公廳的[新書發表會](https://www.facebook.com/events/1662129040716123/)
 * 有語音功能的[線上辭典](http://kaxabu.意傳.台灣/)
