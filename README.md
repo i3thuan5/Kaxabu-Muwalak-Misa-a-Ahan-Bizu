@@ -15,6 +15,9 @@
 * 文本：`《噶哈巫語分類辭典》EXCEL版本.xls`
 * 聲音：[下載](https://www.dropbox.com/sh/8iqtr7eayb93lws/AAANlE-qleOKHIibQKnCBgVNa?dl=0)
 
+## 授權
+本辭典用`姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0)`授權
+
 ## 相關連結
 * 2015/11/29在守城新公廳的[新書發表會](https://www.facebook.com/events/1662129040716123/)
 * 有語音功能的[線上辭典](http://kaxabu.意傳.台灣/)
