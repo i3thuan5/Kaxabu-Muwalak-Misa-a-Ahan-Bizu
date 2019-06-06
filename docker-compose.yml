@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  gunicorn:
+    build: 後端/
+    volumes:
+      - ./hok8_bu7/local.py:/usr/local/hok8-bu7/hok8_bu7/local.py
+    networks:
+      - default
+      - nginx-bridge
+    environment:
+      VIRTUAL_HOST: "dbkaxabu.xn--v0qr21b.xn--kpry57d"
+      LETSENCRYPT_HOST: "dbkaxabu.xn--v0qr21b.xn--kpry57d"
+      LETSENCRYPT_EMAIL: "ithuan@xn--v0qr21b.xn--kpry57d"
+    restart: always
+
+networks:
+  nginx-bridge:
+    external: true
+
