@@ -1,3 +1,4 @@
 Django==1.9.1
 django-cors-headers==1.1.0
 xlrd==0.9.4
+gunicorn
