@@ -1,8 +1,40 @@
 # Kaxabu Muwalak Misa A Ahan Bizu
-噶哈巫語分類辭典，於2015/11/29在守城新公廳[發表](https://www.facebook.com/events/1662129040716123/)。
+本網站內容取自《噶哈巫語分類辭典》一書，謹此致謝。
+
+書籍資訊：
+
+* 原著：潘永歷
+* 總編輯：董忠司
+* 主編：陳嬿庄
+* 編輯：潘正浩、林鴻瑞、涂文欽、朱恩成
+* 出版單位：南投縣埔里鎮守城社區發展協會
+* 出版年：2015年
+* ISBN：9789869248808
+
+## 辭典資料
+* 文本：`《噶哈巫語分類辭典》EXCEL版本.xls`
+* 聲音：[下載](https://www.dropbox.com/sh/8iqtr7eayb93lws/AAANlE-qleOKHIibQKnCBgVNa?dl=0)
+
+## 授權
+本辭典用`姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0)`授權
+
+除原始資料外，此檔案庫內轉換格式、重新編排的編輯著作權（如果有的話）皆以 CC0 釋出，衍生著作物應以原始資料之授權為準。
+
+程式部份為MIT授權。
+
+## 相關連結
+* 2015/11/29在守城新公廳的[新書發表會](https://www.facebook.com/events/1662129040716123/)
+* 有語音功能的[線上辭典](http://kaxabu.意傳.台灣/)
+
+## 資料整理
+調整原始檔音量
+```
+sudo apt-get install normalize-audio -y
+find . -type f -exec normalize-audio {} \;
+```
 
 
-## 切錄音檔
+## 切錄音檔（原本的失敗構想）
 希望會使逐句分開，逐詞嘛分開，所以愛做兩擺。
 
 1. xls檔
@@ -40,8 +72,7 @@ git clone https://github.com/g0v/moedict-data.git
 ### 設定python環境
 ```
 sudo apt-get install -y liblapack-dev libblas-dev gfortran praat
-virtualenv --python=python3 venv
-. venv/bin/activate
+virtualenv venv --python=python3 ; . venv/bin/activate ; pip install --upgrade pip
 pip install -r requirements.txt 
 ```
 
@@ -55,5 +86,14 @@ wav音檔目錄= '路徑/wav/'
 
 ### 執行
 ```
-PYTHONPATH=../tai5-uan5_gian5-gi2_kang1-ku7/ python 走.py
+python 走.py
 ```
+
+### 人工檢查音檔有切著無
+```
+python bizu/敆音檔.py
+```
+才去`檢查音檔有切好無`照分類聽
+* 聽編號佮華語是毋是學姐的聲
+* 臺語佮kaxabu是長老的聲
+

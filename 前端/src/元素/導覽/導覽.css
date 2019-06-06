@@ -3,14 +3,20 @@
   justify-content: space-between;
 }
 
+.app .bar.container .fixed {
+  position: fixed;
+  right: 20vh;
+  top: 1em;
+}
+
 .app.bar .title {
   display: block;
   margin: 0;
-  width: 300px;
+  width: 450px;
   height: 72px;
   color:orange;
 }
 
 .app.bar #關鍵字 {
-	width:300px;
+	width:200px;
 }

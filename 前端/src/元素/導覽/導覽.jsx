@@ -1,32 +1,57 @@
 
 import React from 'react';
-import Transmit from 'react-transmit';
-import {Link} from 'react-router';
-import './導覽.css';
+import Debug from 'debug';
 import 音檔 from './音檔';
+import './導覽.css';
 
+var debug = Debug('kaxabu:導覽');
 
-class ToLam extends React.Component {
-  更新詞(e)
-  {
-    let 關鍵字 = e.target.value;
-    this.props.跳到查詞(關鍵字);
+export default class 導覽 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      關鍵字: '',
+    };
   }
 
-  render () {
+  componentWillReceiveProps(nextProps) {
+    let 關鍵字 = nextProps.關鍵字;
+    if (關鍵字 !== this.state.關鍵字) {
+      this.setState({ 關鍵字 });
+    }
+  }
+
+  搜尋(evt) {
+    evt.preventDefault();
+    this.props.跳到查詞(this.state.關鍵字);
+    return;
+  }
+
+  輸入(e) {
+    debug(e);
+    this.setState({ 關鍵字: e.target.value });
+  }
+
+  render() {
+    debug(this.props.關鍵字);
+    debug(this.state.關鍵字);
     return (
       <div className='app bar container'>
         <h1 className='title'>
-          <Link to='/'>
-            Kaxabu分類辭典
-            </Link>
+            Kaxabu Muwalak Misa A Ahan Bizu<br/>
+            噶哈巫語分類辭典
         </h1>
-        <input id='關鍵字' placeholder='輸入關鍵字……'
-          defaultValue={this.props.關鍵字} onKeyUp={this.更新詞.bind(this)} /> 
-        <音檔 後端網址={this.props.後端網址} 語詞編號={this.props.語詞編號} 內容={this.props.內容}/>
-       </div>
+        <div className='fixed'>
+          <form onSubmit={this.搜尋.bind(this)}>
+            <div className='ui input'>
+            <input id='關鍵字' placeholder='輸入關鍵字……'
+              value={this.state.關鍵字 || ''}
+              onChange={this.輸入.bind(this)}/>
+            </div>
+          </form>
+          <音檔 語詞編號={this.props.語詞編號} 內容={this.props.內容}/>
+        </div>
+        </div>
       );
   }
 }
-
-export default Transmit.createContainer(ToLam, { query: {} });
