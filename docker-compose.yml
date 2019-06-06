@@ -4,7 +4,7 @@ services:
   gunicorn:
     build: 後端/
     volumes:
-      - ./hok8_bu7/local.py:/usr/local/hok8-bu7/hok8_bu7/local.py
+      - ./好的/:/opt/好的/:ro
     networks:
       - default
       - nginx-bridge
