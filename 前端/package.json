@@ -22,8 +22,7 @@
     "url": "https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu/issues"
   },
   "homepage": "https://github.com/Taiwanese-Corpus/kaxabu_muwalak_misa_a_ahan_bizu",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer-core": "^5.2.0",
     "babel-core": "^6.4.0",

@@ -32,12 +32,18 @@ export default class 網站 extends React.Component {
     return (
         <div className='app background'>
           <header className='app header'>
-            <導覽
+            <div className='app bar container'>
+              <h1 className='title'>
+                Kaxabu Muwalak Misa A Ahan Bizu<br/>
+                噶哈巫語分類辭典
+              </h1>
+            </div>
+          </header>
+          <導覽
               跳到查詞={this.跳到查詞.bind(this)}
               關鍵字={this.state.關鍵字}
               語詞編號={this.state.語詞編號}
               內容={this.state.內容}/>
-          </header>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
             variables={{ 關鍵字: this.state.關鍵字,
