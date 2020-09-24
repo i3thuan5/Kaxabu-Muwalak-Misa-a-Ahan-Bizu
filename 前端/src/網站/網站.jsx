@@ -31,13 +31,11 @@ export default class 網站 extends React.Component {
   render () {
     return (
         <div className='app background'>
-          <header className='app header'>
-            <div className='app bar container'>
-              <h1 className='title'>
-                Kaxabu Muwalak Misa A Ahan Bizu<br/>
-                噶哈巫語分類辭典
-              </h1>
-            </div>
+          <header className='ui container padded basic segment'>
+            <h1 className='ui header'>
+              Kaxabu Muwalak Misa A Ahan Bizu
+              <div className='sub header'>噶哈巫語分類辭典</div>
+            </h1>
           </header>
           <導覽
               跳到查詞={this.跳到查詞.bind(this)}
