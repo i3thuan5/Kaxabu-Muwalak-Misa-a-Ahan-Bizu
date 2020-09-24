@@ -3,9 +3,6 @@ import Router from 'react-router';
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
 import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
-import Debug from 'debug';
-
-var debug = Debug('kaxabu:網站');
 
 export default class 網站 extends React.Component {
 
@@ -53,6 +50,7 @@ export default class 網站 extends React.Component {
              }}
             renderLoading={<詞條區塊/>}/>
           </div>
+          
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>

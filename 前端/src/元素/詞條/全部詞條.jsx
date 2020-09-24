@@ -2,7 +2,7 @@
 import React from 'react';
 import Transmit from 'react-transmit';
 import superagent from 'superagent-bluebird-promise';
-import Debug from 'debug';
+// import Debug from 'debug';
 import 詞條 from './詞條';
 import 詞條標題 from './詞條標題';
 import { 後端網址 } from '../../後端';
