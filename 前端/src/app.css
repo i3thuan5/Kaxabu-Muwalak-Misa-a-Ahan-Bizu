@@ -9,7 +9,7 @@ body {
   min-height: 100vh;
 }
 
-.app .container {
+/*.app .container {
   width: 960px;
   margin: 0 auto;
 }
@@ -20,7 +20,7 @@ body {
   flex-grow: 1;
   align-content: flex-start;
 }
-
+*/
 .navigation {
   height: 50px;
   margin: 2em 0;

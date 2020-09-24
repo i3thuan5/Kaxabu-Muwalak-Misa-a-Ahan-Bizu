@@ -31,7 +31,7 @@ export default class 網站 extends React.Component {
   render () {
     return (
         <div className='app background'>
-          <header className='ui container padded basic segment'>
+          <header className='ui text container padded basic segment'>
             <h1 className='ui header'>
               Kaxabu Muwalak Misa A Ahan Bizu
               <div className='sub header'>噶哈巫語分類辭典</div>

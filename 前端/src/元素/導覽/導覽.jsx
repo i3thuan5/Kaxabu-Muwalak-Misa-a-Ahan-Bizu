@@ -42,7 +42,7 @@ export default class 導覽 extends React.Component {
               <input id='關鍵字' placeholder='輸入關鍵字……'
                 value={this.state.關鍵字 || ''}
                 onChange={this.輸入.bind(this)}/>
-              <button type='submit' className='ui button'>搜尋</button>
+              <button type='submit' className='ui button'>查辭典</button>
             </div>
           </form>
           <音檔 語詞編號={this.props.語詞編號} 內容={this.props.內容}/>
