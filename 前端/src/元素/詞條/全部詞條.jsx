@@ -6,9 +6,9 @@ import Debug from 'debug';
 import 詞條 from './詞條';
 import 詞條標題 from './詞條標題';
 import { 後端網址 } from '../../後端';
-import 詞條區塊 from '../詞條區塊/詞條區塊';
+// import 詞條區塊 from '../詞條區塊/詞條區塊';
 
-var debug = Debug('kaxabu:全部詞條');
+// var debug = Debug('kaxabu:全部詞條');
 
 class 全部詞條 extends React.Component {
   constructor(props) {
@@ -48,15 +48,17 @@ class 全部詞條 extends React.Component {
     );
 
     return (
-      <詞條區塊>
-            <table>
-                <tbody>
-                  <詞條標題/>
-                  {詞條陣列}
-                </tbody>
-            </table>
-            {this.看閣較濟()}
-      </詞條區塊>
+      <div className='ui container'>
+        <table className='ui very basic table'>
+          <thead>
+              <詞條標題/>
+          </thead>
+            <tbody>
+              {詞條陣列}
+            </tbody>
+        </table>
+        {this.看閣較濟()}
+      </div>
           );
   }
 }
