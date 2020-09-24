@@ -30,7 +30,8 @@ export default class 網站 extends React.Component {
 
   render () {
     return (
-        <div className='app background'>
+        <div className='app site'>
+          <div className='app main'>
           <header className='ui text container padded basic segment'>
             <h1 className='ui header'>
               Kaxabu Muwalak Misa A Ahan Bizu
@@ -51,6 +52,7 @@ export default class 網站 extends React.Component {
               跳到查詞: this.跳到查詞.bind(this),
              }}
             renderLoading={<詞條區塊/>}/>
+          </div>
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>

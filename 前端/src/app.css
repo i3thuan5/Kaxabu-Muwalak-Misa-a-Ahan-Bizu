@@ -1,26 +1,13 @@
-
-body {
-  margin: 0;
-}
-
-.app.background {
+.app.site {
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-/*.app .container {
-  width: 960px;
-  margin: 0 auto;
+.app.main {
+  flex-grow: 1;
 }
 
-.app .main.container {
-  display: flex;
-  flex-flow: row wrap;
-  flex-grow: 1;
-  align-content: flex-start;
-}
-*/
 .navigation {
   height: 50px;
   margin: 2em 0;
