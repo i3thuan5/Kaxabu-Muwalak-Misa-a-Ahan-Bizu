@@ -36,6 +36,9 @@ export default class 網站 extends React.Component {
               Kaxabu Muwalak Misa A Ahan Bizu
               <div className='sub header'>噶哈巫語分類辭典</div>
             </h1>
+            <div className="ui message">
+            <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
+            </div>
           </header>
           <導覽
               跳到查詞={this.跳到查詞.bind(this)}

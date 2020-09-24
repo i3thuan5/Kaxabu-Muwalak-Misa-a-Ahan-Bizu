@@ -24,13 +24,7 @@ export default class 音檔 extends React.Component {
            <source src={後端網址 + '聽?語詞編號=' + 語詞編號 + '&內容=' + 內容} type="audio/wav"/>
         </audio>
       );
-    } else
-    {
-      return (
-        <div className="ui message">
-          <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
-        </div>
-      );
     }
+    return null
   }
 }
