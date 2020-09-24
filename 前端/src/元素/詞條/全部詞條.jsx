@@ -19,7 +19,7 @@ class 全部詞條 extends React.Component {
   }
 
   預設顯示幾个() {
-    return 100;
+    return 0;
   }
 
   看閣較濟全開() {
@@ -32,7 +32,7 @@ class 全部詞條 extends React.Component {
     if (this.props.辭典資料.符合資料.length > this.state.全開)
     return (
           <button onClick={this.看閣較濟全開.bind(this)}
-            className='ui icon button'>
+            className='ui fluid icon button'>
             再顯示多一點
           </button>
       );
@@ -48,7 +48,7 @@ class 全部詞條 extends React.Component {
     );
 
     return (
-      <div className='ui container'>
+      <div className='ui container padded basic segment'>
         <table className='ui very basic table'>
           <thead>
               <詞條標題/>
