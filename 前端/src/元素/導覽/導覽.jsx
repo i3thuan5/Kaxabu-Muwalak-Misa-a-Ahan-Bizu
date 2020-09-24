@@ -36,7 +36,7 @@ export default class 導覽 extends React.Component {
     debug(this.props.關鍵字);
     debug(this.state.關鍵字);
     return (
-        <div className="ui text container padded basic segment mobile hidden">
+        <div className="ui text container padded basic segment">
           <form onSubmit={this.搜尋.bind(this)}>
             <div className='ui fluid action input'>
               <input id='關鍵字' placeholder='輸入關鍵字……'
