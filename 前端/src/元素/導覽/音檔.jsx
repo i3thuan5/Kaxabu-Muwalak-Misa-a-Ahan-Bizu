@@ -1,9 +1,6 @@
 
 import React from 'react';
-import Debug from 'debug';
 import {後端網址} from '../../後端';
-
-var debug = Debug('kaxabu:音檔');
 
 export default class 音檔 extends React.Component {
 
@@ -17,6 +14,7 @@ export default class 音檔 extends React.Component {
 
   render () {
     let { 語詞編號, 內容 } = this.props;
+    console.log('語詞編號, 內容:', 語詞編號, 內容)
     if (語詞編號 != '' && 內容 != '')
     {
       return (
@@ -24,13 +22,7 @@ export default class 音檔 extends React.Component {
            <source src={後端網址 + '聽?語詞編號=' + 語詞編號 + '&內容=' + 內容} type="audio/wav"/>
         </audio>
       );
-    } else
-    {
-      return (
-        <div className="ui message">
-          <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
-        </div>
-      );
     }
+    return null
   }
 }

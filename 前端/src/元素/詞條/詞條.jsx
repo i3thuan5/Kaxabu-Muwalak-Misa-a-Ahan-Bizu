@@ -1,14 +1,8 @@
-
 import React from 'react';
-import Debug from 'debug';
-
-var debug = Debug('kaxabu:詞條');
 
 export default class 詞條 extends React.Component {
-
   點編號(編號) {
     let found = 編號.match(/([\dA-Z]+)-([\dA-Z]+)/i);
-    debug(found);
     let index = found[1];
     if (index) {
       this.props.跳到查詞(index);
@@ -17,7 +11,6 @@ export default class 詞條 extends React.Component {
 
   點音檔(內容, c)
   {
-    debug(內容);
     this.props.換音檔(this.props.資料.語詞編號, 內容);
   }
 

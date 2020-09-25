@@ -1,8 +1,4 @@
-
 import React from 'react';
-import Debug from 'debug';
-
-var debug = Debug('kaxabu:詞條標題');
 
 export default class 詞條標題 extends React.Component {
 

@@ -2,13 +2,13 @@
 import React from 'react';
 import Transmit from 'react-transmit2';
 import superagent from 'superagent-bluebird-promise';
-import Debug from 'debug';
+// import Debug from 'debug';
 import 詞條 from './詞條';
 import 詞條標題 from './詞條標題';
 import { 後端網址 } from '../../後端';
-import 詞條區塊 from '../詞條區塊/詞條區塊';
+// import 詞條區塊 from '../詞條區塊/詞條區塊';
 
-var debug = Debug('kaxabu:全部詞條');
+// var debug = Debug('kaxabu:全部詞條');
 
 class 全部詞條 extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class 全部詞條 extends React.Component {
     if (this.props.辭典資料.符合資料.length > this.state.全開)
     return (
           <button onClick={this.看閣較濟全開.bind(this)}
-            className='ui icon button'>
+            className='ui fluid icon button'>
             再顯示多一點
           </button>
       );
@@ -48,15 +48,17 @@ class 全部詞條 extends React.Component {
     );
 
     return (
-      <詞條區塊>
-            <table>
-                <tbody>
-                  <詞條標題/>
-                  {詞條陣列}
-                </tbody>
-            </table>
-            {this.看閣較濟()}
-      </詞條區塊>
+      <div className='ui container padded basic segment'>
+        <table className='ui very basic table'>
+          <thead>
+              <詞條標題/>
+          </thead>
+            <tbody>
+              {詞條陣列}
+            </tbody>
+        </table>
+        {this.看閣較濟()}
+      </div>
           );
   }
 }

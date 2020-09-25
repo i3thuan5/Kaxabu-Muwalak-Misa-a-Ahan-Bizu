@@ -3,11 +3,11 @@
   justify-content: space-between;
 }
 
-.app .bar.container .fixed {
+/*.app .bar.container .fixed {
   position: fixed;
   right: 20vh;
   top: 1em;
-}
+}*/
 
 .app.bar .title {
   display: block;
