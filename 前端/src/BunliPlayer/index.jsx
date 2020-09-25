@@ -85,10 +85,13 @@ render () {
           className='react-player'
           onReady={this.handleReady}
           onStart={this.handleStart}
+          onBuffer={()=>{console.log('onBuffer')}}    
+          onBufferEnd={()=>{console.log('onBufferEnd')}}
           onDuration={this.handleDuration}
           onPlay={this.handlePlay}
           onEnded={this.handleEnded}
           onProgress={this.handleProgress}
+          progressInterval={150}
           playing={playing}
           config={{
             file: {
