@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Transmit from 'react-transmit';
+import Transmit from 'react-transmit2';
 import superagent from 'superagent-bluebird-promise';
 import Debug from 'debug';
 import 詞條 from './詞條';
@@ -60,6 +60,7 @@ class 全部詞條 extends React.Component {
           );
   }
 }
+
 
 export default Transmit.createContainer(全部詞條, {
   initialVariables: {

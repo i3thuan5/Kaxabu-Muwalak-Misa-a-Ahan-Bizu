@@ -1,5 +1,5 @@
 import React from 'react';
-import Router from 'react-router';
+import { withRouter } from 'react-router-dom'
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
 import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
@@ -7,12 +7,12 @@ import Debug from 'debug';
 
 var debug = Debug('kaxabu:網站');
 
-export default class 網站 extends React.Component {
+class BangTsam extends React.Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      關鍵字: props.params.word || '',
+      關鍵字: this.props.match.params.word || '',
       語詞編號: '',
       內容:'',
     };
@@ -56,3 +56,6 @@ export default class 網站 extends React.Component {
       );
   }
 }
+
+
+export default withRouter(BangTsam)
