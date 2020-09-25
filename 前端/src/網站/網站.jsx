@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
 import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
+import BunliPlayer from '../BunliPlayer'
 
 class BangTsam extends React.Component {
 
@@ -38,6 +39,7 @@ class BangTsam extends React.Component {
             <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
             </div>
           </header>
+          <BunliPlayer/>
           <導覽
               跳到查詞={this.跳到查詞.bind(this)}
               關鍵字={this.state.關鍵字}
