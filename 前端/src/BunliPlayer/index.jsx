@@ -1,12 +1,18 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
+import Duration from './Duration'
+
 
 class BunliPlayer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       isReady: false,
-      playing: false
+      playing: false,
+      duration: 0,
+      played: 0,
+      playedSeconds: 0,
+      loaded: 0,
     }
     this.handleReady = this.handleReady.bind(this)
     this.handleStart = this.handleStart.bind(this)
@@ -19,6 +25,11 @@ handleReady(){
   this.setState({isReady: true})
 }
 
+handleDuration = (duration) => {
+  console.log('onDuration:', duration)
+  this.setState({duration})
+}
+
 handleStart(){
 	console.log('onStart')
 }
@@ -27,10 +38,16 @@ handlePlay(){
 	this.setState({playing: true})
 }
 
+handleProgress = state => {
+  console.log('onProgress:', state)
+  this.setState(state)
+}
+
 handleEnded = () => {
   console.log('onEnded')
   this.setState({playing: false})
 }
+
 
 togglePlayPause(e){
 	e.preventDefault()
@@ -38,17 +55,29 @@ togglePlayPause(e){
 }
 
 render () {
-	let { isReady, playing } = this.state
+	let { isReady, playing, duration, played, playedSeconds } = this.state
   
     return (
     	<div className='player-wrapper'>
         {
         	isReady 
-          	? <button onClick={this.togglePlayPause}>
-                {
-                	playing ? 'pause' : 'play'
-                 }
-              </button>
+          	? <div>
+                <button
+                  className='ui basic circular icon button'
+                  onClick={this.togglePlayPause}
+                >
+                  <i className={
+                    `icon ${
+                            playing
+                              ? 'pause'
+                              : 'play '
+                    }`}
+                  />
+                </button>
+                <Duration seconds={playedSeconds}/>
+                <progress max={1} value={played} />
+                <Duration seconds={duration}/>
+              </div>
         		:	<span>waiting...</span>
         }
         <ReactPlayer
@@ -56,8 +85,10 @@ render () {
           className='react-player'
           onReady={this.handleReady}
           onStart={this.handleStart}
+          onDuration={this.handleDuration}
           onPlay={this.handlePlay}
           onEnded={this.handleEnded}
+          onProgress={this.handleProgress}
           playing={playing}
           config={{
             file: {
