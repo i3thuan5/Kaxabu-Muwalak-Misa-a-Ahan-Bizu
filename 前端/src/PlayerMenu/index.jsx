@@ -7,25 +7,22 @@ const PlayerMenu = ({showPlayerMenu}) => {
 
   const transitions = useTransition(showPlayerMenu, null, {
       from: {
-        opacity: 0.5
+        opacity: 0, transform: 'translate3d(0,50px,0)'
       },
       enter: {
-      	opacity: 1
+      	opacity: 1, transform: 'translate3d(0,0,0)'
       },
       leave: {
-      	opacity: 0
+      	opacity: 0, transform: 'translate3d(0,50,0)'
       }
   })
 
-  // return (<div className='ui container'>
-  // 	<BunliPlayer/>
-  // </div>)
-  return transitions.map(({item, key, props}) =>
+   return transitions.map(({item, key, props}) =>
   	item && <animated.div key={key}
-		  		className="ui container" 
+		  		className="ui bottom fixed menu" 
 			  	style={props}
 			>
-        	<BunliPlayer/>
+        		<BunliPlayer/>
       		</animated.div>
 	)
 }
