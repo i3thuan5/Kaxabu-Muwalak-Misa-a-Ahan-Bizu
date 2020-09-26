@@ -64,12 +64,6 @@ class BangTsam extends React.Component {
           </header>
           {/*<button onClick={this.togglePlayer}>Toogle</button>*/}
 
-          <PlayerMenu 
-            showPlayerMenu={showPlayerMenu}
-            handleClose={this.closePlayer}
-            url={url}
-          />
-          
           <導覽
               關鍵字={this.state.關鍵字}
               語詞編號={this.state.語詞編號}
@@ -80,14 +74,20 @@ class BangTsam extends React.Component {
             renderLoading={<詞條區塊/>}/>
           </div>
 
-          <footer className='app footer inverted'>
-            <ul className='ui menu container inverted'>
+          <footer>
+            <ul className='ui stackable inverted menu'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
               <li className='item'><a href='https://www.facebook.com/kaxabu/?fref=ts'>埔里四庄番-噶哈巫族FB</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu/blob/master/README.md'>網站資訊</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu'>Github</a></li>
             </ul>
           </footer>
+
+          <PlayerMenu 
+            showPlayerMenu={showPlayerMenu}
+            handleClose={this.closePlayer}
+            url={url}
+          />
         </div>
       );
   }
