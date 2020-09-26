@@ -66,6 +66,7 @@ class BangTsam extends React.Component {
 
           <PlayerMenu 
             showPlayerMenu={showPlayerMenu}
+            handleClose={this.closePlayer}
             url={url}
           />
           

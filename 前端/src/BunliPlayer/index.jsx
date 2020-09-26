@@ -56,6 +56,7 @@ togglePlayPause(e){
 }
 
 render () {
+  let { handleClose } = this.props
 	let { isReady, playing, duration, played, playedSeconds } = this.state
   
     return (
@@ -78,6 +79,12 @@ render () {
                 <Duration seconds={playedSeconds}/>
                 <progress max={1} value={played} />
                 <Duration seconds={duration}/>
+                <button
+                  className='ui basic circular icon button'
+                  onClick={handleClose}
+                >
+                  <i className='icon close'/>
+                </button>
               </div>
         		:	<span>waiting...</span>
         }
