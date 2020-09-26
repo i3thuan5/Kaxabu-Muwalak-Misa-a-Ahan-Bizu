@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTransition, animated } from 'react-spring'
 import BunliPlayer from '../BunliPlayer'
 
-const PlayerMenu = ({showPlayerMenu, url, handleClose}) => {
+const PlayerMenu = ({showPlayerMenu, url, handleClose, pianho, lueiong}) => {
 
   const transitions = useTransition(showPlayerMenu, null, {
       from: {
@@ -18,12 +18,14 @@ const PlayerMenu = ({showPlayerMenu, url, handleClose}) => {
 
    return transitions.map(({item, key, props}) =>
   	item && <animated.div key={key}
-		  		className="ui bottom fixed menu" 
+		  		className="ui inverted bottom fixed menu"
 			  	style={props}
 			>
         		<BunliPlayer
         			url={url}
         			handleClose={handleClose}
+              pianho={pianho}
+              lueiong={lueiong}
         		/>
       		</animated.div>
 	)

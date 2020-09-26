@@ -48,7 +48,7 @@ class BangTsam extends React.Component {
   }
 
   render () {
-    let { showPlayerMenu, url } = this.state
+    let { 關鍵字, 語詞編號, 內容, showPlayerMenu, url } = this.state
 
     return (
         <div className='app site'>
@@ -62,7 +62,6 @@ class BangTsam extends React.Component {
             <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
             </div>
           </header>
-          {/*<button onClick={this.togglePlayer}>Toogle</button>*/}
 
           <導覽
               關鍵字={this.state.關鍵字}
@@ -70,7 +69,7 @@ class BangTsam extends React.Component {
               內容={this.state.內容}/>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
-            variables={{關鍵字: this.state.關鍵字}}
+            variables={{關鍵字}}
             renderLoading={<詞條區塊/>}/>
           </div>
 
@@ -85,8 +84,10 @@ class BangTsam extends React.Component {
 
           <PlayerMenu 
             showPlayerMenu={showPlayerMenu}
-            handleClose={this.closePlayer}
             url={url}
+            pianho={語詞編號}
+            lueiong={內容}
+            handleClose={this.closePlayer}
           />
         </div>
       );

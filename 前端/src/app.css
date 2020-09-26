@@ -40,3 +40,30 @@ body {
 header.ui.padded.segment {
   padding-bottom: 0;
 }
+
+
+/* Player */
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  padding-top: 10px;
+}
+.player-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.player-progress {
+  position: absolute;
+  width: 1px;
+  height: 3px;
+  top: -3px;
+  left: 0;
+  background: #e03997;
+}
+.player-duration {
+  font-size: 1.7rem;
+}

@@ -55,17 +55,40 @@ togglePlayPause(e){
 	this.setState({playing: !this.state.playing})
 }
 
+resizeProgress = () => {
+  let { played } = this.state
+  let width = played * 100 + 'vw'
+  console.log('width=', width)
+  return width
+}
+
 render () {
-  let { handleClose } = this.props
+  let { handleClose, pianho, lueiong } = this.props
 	let { isReady, playing, duration, played, playedSeconds } = this.state
   
+  let width = this.resizeProgress()
+
     return (
     	<div className='player-wrapper'>
+        <h4 className='ui inverted grey header'>{pianho}
+          <div className='sub header'>{lueiong}</div>
+        </h4>
         {
-        	isReady 
-          	? <div>
+          isReady
+            ? <div className='player-progress'
+                  style={{width}}/>
+            : null
+        }
+        {
+        	isReady
+          	? <div className='player-control'>
                 <button
-                  className='ui blue basic circular icon button'
+                  className={
+                    `ui ${
+                      playing
+                        ? ''
+                        : 'basic'
+                    } pink huge circular icon button`}
                   onClick={this.togglePlayPause}
                 >
                   <i className={
@@ -76,11 +99,8 @@ render () {
                     }`}
                   />
                 </button>
-                <Duration seconds={playedSeconds}/>
-                <progress max={1} value={played} />
-                <Duration seconds={duration}/>
                 <button
-                  className='ui basic circular icon button'
+                  className='ui inverted basic huge circular icon button'
                   onClick={handleClose}
                 >
                   <i className='icon close'/>
