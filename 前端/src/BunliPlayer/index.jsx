@@ -63,7 +63,7 @@ render () {
         	isReady 
           	? <div>
                 <button
-                  className='ui basic circular icon button'
+                  className='ui blue basic circular icon button'
                   onClick={this.togglePlayPause}
                 >
                   <i className={
@@ -83,6 +83,8 @@ render () {
         <ReactPlayer
           url='https://dbkaxabu.xn--v0qr21b.xn--kpry57d/%E8%81%BD?%E8%AA%9E%E8%A9%9E%E7%B7%A8%E8%99%9F=01A-001&%E5%85%A7%E5%AE%B9=%E8%8F%AF%E8%AA%9E'
           className='react-player'
+          width={100}
+          height={20}
           onReady={this.handleReady}
           onStart={this.handleStart}
           onBuffer={()=>{console.log('onBuffer')}}    

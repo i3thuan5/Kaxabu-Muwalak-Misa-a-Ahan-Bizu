@@ -1,9 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
+import { useTransition, animated } from 'react-spring' 
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
 import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
-import BunliPlayer from '../BunliPlayer'
+import PlayerMenu from '../PlayerMenu'
+ 
 
 class BangTsam extends React.Component {
 
@@ -13,6 +15,7 @@ class BangTsam extends React.Component {
       關鍵字: this.props.match.params.word || '',
       語詞編號: '',
       內容:'',
+      showPlayerMenu: false,
     };
   }
 
@@ -26,7 +29,14 @@ class BangTsam extends React.Component {
     this.setState({ 語詞編號, 內容 });
   }
 
+  togglePlayer = () => {
+    console.log('togglePlayer')
+    this.setState({showPlayerMenu: !this.state.showPlayerMenu})
+  }
+
   render () {
+    let { showPlayerMenu } = this.state
+
     return (
         <div className='app site'>
           <div className='app main'>
@@ -39,7 +49,10 @@ class BangTsam extends React.Component {
             <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
             </div>
           </header>
-          <BunliPlayer/>
+          <button onClick={this.togglePlayer}>Toogle</button>
+
+          <PlayerMenu showPlayerMenu={showPlayerMenu}/>
+          
           <導覽
               跳到查詞={this.跳到查詞.bind(this)}
               關鍵字={this.state.關鍵字}
@@ -52,7 +65,7 @@ class BangTsam extends React.Component {
              }}
             renderLoading={<詞條區塊/>}/>
           </div>
-          
+
           <footer className='app footer inverted'>
             <ul className='ui menu container inverted'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
