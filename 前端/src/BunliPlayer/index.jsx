@@ -8,7 +8,7 @@ class BunliPlayer extends React.Component {
     super(props)
     this.state = {
       isReady: false,
-      playing: false,
+      playing: true,
       duration: 0,
       played: 0,
       playedSeconds: 0,

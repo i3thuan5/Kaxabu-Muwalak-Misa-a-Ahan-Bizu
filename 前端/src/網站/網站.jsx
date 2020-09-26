@@ -19,19 +19,15 @@ class BangTsam extends React.Component {
     };
   }
 
-  跳到查詞 (關鍵字) {
-    this.setState({ 關鍵字:關鍵字, 語詞編號:'', 內容:'' });
-    this.props.history.replaceState(null,    '/' + 關鍵字);
+  togglePlayer = () => {
+    console.log('togglePlayer')
+    this.setState({showPlayerMenu: !this.state.showPlayerMenu})
   }
 
   換音檔(語詞編號, 內容)
   {
+    this.togglePlayer()
     this.setState({ 語詞編號, 內容 });
-  }
-
-  togglePlayer = () => {
-    console.log('togglePlayer')
-    this.setState({showPlayerMenu: !this.state.showPlayerMenu})
   }
 
   render () {
@@ -49,20 +45,17 @@ class BangTsam extends React.Component {
             <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
             </div>
           </header>
-          <button onClick={this.togglePlayer}>Toogle</button>
+          {/*<button onClick={this.togglePlayer}>Toogle</button>*/}
 
           <PlayerMenu showPlayerMenu={showPlayerMenu}/>
           
           <導覽
-              跳到查詞={this.跳到查詞.bind(this)}
               關鍵字={this.state.關鍵字}
               語詞編號={this.state.語詞編號}
               內容={this.state.內容}/>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
-            variables={{ 關鍵字: this.state.關鍵字,
-              跳到查詞: this.跳到查詞.bind(this),
-             }}
+            variables={{關鍵字: this.state.關鍵字}}
             renderLoading={<詞條區塊/>}/>
           </div>
 
