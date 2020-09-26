@@ -5,7 +5,8 @@ import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
 import 詞條區塊 from '../元素/詞條區塊/詞條區塊';
 import PlayerMenu from '../PlayerMenu'
- 
+import { ImtongBangtsi } from '../後端';
+
 
 class BangTsam extends React.Component {
 
@@ -15,6 +16,7 @@ class BangTsam extends React.Component {
       關鍵字: this.props.match.params.word || '',
       語詞編號: '',
       內容:'',
+      url: '',
       showPlayerMenu: false,
     };
   }
@@ -24,14 +26,29 @@ class BangTsam extends React.Component {
     this.setState({showPlayerMenu: !this.state.showPlayerMenu})
   }
 
+  openPlayer = () => {
+    this.setState({showPlayerMenu: true})    
+  }
+
+  closePlayer = () => {
+    this.setState({showPlayerMenu: false})
+  }
+
   換音檔(語詞編號, 內容)
   {
-    this.togglePlayer()
-    this.setState({ 語詞編號, 內容 });
+    console.log('語詞編號, 內容=', 語詞編號, 內容)
+    if(語詞編號 == this.state.語詞編號 && 內容 == this.state.內容){
+      this.togglePlayer()
+      return
+    }
+    this.openPlayer()
+    let url = ImtongBangtsi(語詞編號, 內容)
+    console.log('url=', url)
+    this.setState({語詞編號, 內容, url});
   }
 
   render () {
-    let { showPlayerMenu } = this.state
+    let { showPlayerMenu, url } = this.state
 
     return (
         <div className='app site'>
@@ -47,7 +64,10 @@ class BangTsam extends React.Component {
           </header>
           {/*<button onClick={this.togglePlayer}>Toogle</button>*/}
 
-          <PlayerMenu showPlayerMenu={showPlayerMenu}/>
+          <PlayerMenu 
+            showPlayerMenu={showPlayerMenu}
+            url={url}
+          />
           
           <導覽
               關鍵字={this.state.關鍵字}

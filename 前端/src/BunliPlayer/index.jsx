@@ -21,8 +21,9 @@ class BunliPlayer extends React.Component {
   }
 
 handleReady(){
-	console.log('onReady')
-  this.setState({isReady: true})
+  let { playing } = this.state
+	console.log('onReady, playing=', playing)
+  this.setState({isReady: true, playing: true})
 }
 
 handleDuration = (duration) => {
@@ -81,7 +82,7 @@ render () {
         		:	<span>waiting...</span>
         }
         <ReactPlayer
-          url='https://dbkaxabu.xn--v0qr21b.xn--kpry57d/%E8%81%BD?%E8%AA%9E%E8%A9%9E%E7%B7%A8%E8%99%9F=01A-001&%E5%85%A7%E5%AE%B9=%E8%8F%AF%E8%AA%9E'
+          url={this.props.url}
           className='react-player'
           width={100}
           height={20}
