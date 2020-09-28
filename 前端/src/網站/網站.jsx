@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-import { useTransition, animated } from 'react-spring' 
 import superagent from 'superagent-bluebird-promise'
 import 導覽 from '../元素/導覽/導覽';
 import 全部詞條 from '../元素/詞條/全部詞條';
@@ -16,41 +15,40 @@ class BangTsam extends React.Component {
       關鍵字: this.props.match.params.word || '',
       辭典資料: [],
       imtong: {
-        語詞編號: '',
+        pianho: '',
         gi: '',
-        內容:'',  
+        lueiong:'',
         url: '',
       },
       showPlayerMenu: false,
     };
   }
 
-  togglePlayer = () => {
-    console.log('togglePlayer')
+  togglePlayerMenu = () => {
     this.setState({showPlayerMenu: !this.state.showPlayerMenu})
   }
 
-  openPlayer = () => {
+  openPlayerMenu = () => {
     this.setState({showPlayerMenu: true})    
   }
 
-  closePlayer = () => {
+  closePlayerMenu = () => {
     this.setState({showPlayerMenu: false, imtong: {
-        語詞編號: '',
+        pianho: '',
         gi: '',
-        內容:'',
+        lueiong:'',
         url: '',
       }
     })
   }
 
-  換音檔(pianho, gi, lueiong)
-  {
-    // if(語詞編號 == this.state.語詞編號 && 內容 == this.state.內容){
-    //   this.togglePlayer()
-    //   return
-    // }
-    this.openPlayer()
+  換音檔 = (pianho, gi, lueiong) => {
+    let { imtong } = this.state
+    if(pianho == imtong.pianho && lueiong == imtong.lueiong){
+      this.togglePlayerMenu()
+      return
+    }
+    this.openPlayerMenu()
     let url = ImtongBangtsi(pianho, gi)
     this.setState({imtong: {pianho, gi, lueiong, url}});
   }
@@ -121,7 +119,7 @@ class BangTsam extends React.Component {
           <PlayerMenu 
             showPlayerMenu={showPlayerMenu}
             imtong={imtong}
-            handleClose={this.closePlayer}
+            handleClose={this.closePlayerMenu}
           />
         </div>
       );

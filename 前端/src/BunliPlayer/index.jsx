@@ -20,16 +20,16 @@ class BunliPlayer extends React.Component {
     this.togglePlayPause = this.togglePlayPause.bind(this)
   }
 
+
 handleReady(){
   let { playing } = this.state
-	this.setState({isReady: true, playing: true})
+  this.setState({isReady: true, playing: true})
 }
+
 
 handleDuration = (duration) => {
   this.setState({duration})
 }
-
-handleStart(){}
 
 handlePlay(){
 	this.setState({playing: true})
@@ -108,7 +108,6 @@ render () {
           width={100}
           height={20}
           onReady={this.handleReady}
-          onStart={this.handleStart}
           onDuration={this.handleDuration}
           onPlay={this.handlePlay}
           onEnded={this.handleEnded}
