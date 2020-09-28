@@ -46,8 +46,12 @@ class BangTsam extends React.Component {
     this.setState({語詞編號, 內容, url});
   }
 
+  clearTshiauTshue = (關鍵字) => {
+    this.setState({ 關鍵字, 語詞編號:'', 內容:'' })
+  }
+
   tsha = (關鍵字) => {
-    this.setState({ 關鍵字:關鍵字, 語詞編號:'', 內容:'' });
+    this.clearTshiauTshue()
     // this.props.history.replaceState(null,    '/' + 關鍵字);
     superagent.get(TshaBangTshi())
       .query({ 關鍵字 })
@@ -55,6 +59,10 @@ class BangTsam extends React.Component {
         this.setState({辭典資料: body.符合資料})
       ))
       .catch((err) => ({ '符合資料':[] }));
+  }
+
+  componentWillMount () {
+    this.tsha(this.state.關鍵字)
   }
 
   render () {

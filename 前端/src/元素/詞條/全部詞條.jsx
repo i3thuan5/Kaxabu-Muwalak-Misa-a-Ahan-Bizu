@@ -18,7 +18,7 @@ class 全部詞條 extends React.Component {
   }
 
   預設顯示幾个() {
-    return 100;
+    return 20;
   }
 
   看閣較濟全開() {
