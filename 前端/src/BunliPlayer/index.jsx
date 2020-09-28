@@ -15,7 +15,6 @@ class BunliPlayer extends React.Component {
       loaded: 0,
     }
     this.handleReady = this.handleReady.bind(this)
-    this.handleStart = this.handleStart.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.togglePlayPause = this.togglePlayPause.bind(this)
   }

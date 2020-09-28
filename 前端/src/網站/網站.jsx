@@ -108,12 +108,16 @@ class BangTsam extends React.Component {
           </div>
 
           <footer>
+            <div className='ui inverted segment'>
+            <div className='ui center aligned container'>
             <ul className='ui stackable inverted menu'>
               <li className='item'><a href='https://www.facebook.com/events/1662129040716123/'>新書發表會暨使用說明會</a></li>
               <li className='item'><a href='https://www.facebook.com/kaxabu/?fref=ts'>埔里四庄番-噶哈巫族FB</a></li>
-              <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu/blob/master/README.md'>網站資訊</a></li>
               <li className='item'><a href='https://github.com/Taiwanese-Corpus/kaxabu-muwalak-misa-a-ahan-bizu'>Github</a></li>
+              <li className='item'><a href='https://ithuan.tw/'>意傳科技維護@2020</a></li>
             </ul>
+            </div>
+            </div>
           </footer>
 
           <PlayerMenu 
