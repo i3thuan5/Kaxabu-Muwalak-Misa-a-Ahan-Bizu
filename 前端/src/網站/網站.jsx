@@ -53,15 +53,23 @@ class BangTsam extends React.Component {
     this.setState({ 關鍵字 })
   }
 
-  tsha = (關鍵字) => {
-    this.clearTshiauTshue()
-    // this.props.history.replaceState(null,    '/' + 關鍵字);
+  updateBangTsi = (關鍵字) => {
+    this.props.history.push({pathname: '/' + 關鍵字});
+  }
+
+  getSutian = (關鍵字) => {
     superagent.get(TshaBangTshi())
       .query({ 關鍵字 })
       .then(({ body }) => (
         this.setState({辭典資料: body.符合資料})
       ))
       .catch((err) => ({ '符合資料':[] }));
+  }
+
+  tsha = (關鍵字) => {
+    this.clearTshiauTshue(關鍵字)
+    this.updateBangTsi(關鍵字)
+    this.getSutian(關鍵字)
   }
 
   componentWillMount () {
