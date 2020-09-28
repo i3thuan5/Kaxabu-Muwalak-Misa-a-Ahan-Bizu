@@ -35,7 +35,13 @@ class BangTsam extends React.Component {
   }
 
   closePlayer = () => {
-    this.setState({showPlayerMenu: false})
+    this.setState({showPlayerMenu: false, imtong: {
+        語詞編號: '',
+        gi: '',
+        內容:'',
+        url: '',
+      }
+    })
   }
 
   換音檔(pianho, gi, lueiong)
@@ -97,6 +103,7 @@ class BangTsam extends React.Component {
                 跳到查詞={this.tsha}
             />
             <全部詞條
+              pianho={imtong.pianho}
               換音檔={this.換音檔.bind(this)}
               辭典資料={辭典資料}
             />

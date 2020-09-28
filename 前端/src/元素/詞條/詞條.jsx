@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SuTiau = ({ 換音檔, 資料 }) => (
-    <tr>
+const SuTiau = ({ 換音檔, 資料, toh }) => (
+    <tr className={toh ? "positive" : ''}>
         <td>{資料.語詞編號}</td>
         <td className="selectable"
           onClick={換音檔.bind(this, 資料.語詞編號, 'Kaxabu', 資料.噶哈巫語教材標記法)}

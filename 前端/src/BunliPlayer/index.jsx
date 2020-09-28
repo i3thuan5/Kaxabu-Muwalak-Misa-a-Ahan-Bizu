@@ -22,30 +22,24 @@ class BunliPlayer extends React.Component {
 
 handleReady(){
   let { playing } = this.state
-	console.log('onReady, playing=', playing)
-  this.setState({isReady: true, playing: true})
+	this.setState({isReady: true, playing: true})
 }
 
 handleDuration = (duration) => {
-  // console.log('onDuration:', duration)
   this.setState({duration})
 }
 
-handleStart(){
-	console.log('onStart')
-}
+handleStart(){}
 
 handlePlay(){
 	this.setState({playing: true})
 }
 
 handleProgress = state => {
-  // console.log('onProgress:', state)
   this.setState(state)
 }
 
 handleEnded = () => {
-  console.log('onEnded')
   this.setState({playing: false})
 }
 
@@ -58,7 +52,6 @@ togglePlayPause(e){
 resizeProgress = () => {
   let { played } = this.state
   let width = played * 100 + 'vw'
-  console.log('width=', width)
   return width
 }
 
@@ -66,7 +59,7 @@ render () {
   let { handleClose, imtong } = this.props
   let { url, pianho, gi, lueiong } = imtong
 	let { isReady, playing, duration, played, playedSeconds } = this.state
-  console.log('imtong=',imtong )
+
   let width = this.resizeProgress()
 
     return (
@@ -116,8 +109,6 @@ render () {
           height={20}
           onReady={this.handleReady}
           onStart={this.handleStart}
-          onBuffer={()=>{console.log('onBuffer')}}    
-          onBufferEnd={()=>{console.log('onBufferEnd')}}
           onDuration={this.handleDuration}
           onPlay={this.handlePlay}
           onEnded={this.handleEnded}

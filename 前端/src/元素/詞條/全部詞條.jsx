@@ -39,10 +39,13 @@ class 全部詞條 extends React.Component {
 
   render () {
     let { 全開 } = this.state;
-    let 詞條陣列 = this.props.辭典資料.slice(0, 全開).map((資料)=>(
-      <詞條 key={資料.語詞編號}
-        資料={資料}
-        換音檔={this.props.換音檔}
+    let { pianho, 辭典資料 } = this.props
+    let 詞條陣列 = 辭典資料.slice(0, 全開).map((資料)=>(
+      <詞條
+          key={資料.語詞編號}
+          toh={pianho == 資料.語詞編號}
+          資料={資料}
+          換音檔={this.props.換音檔}
       />)
     );
 
