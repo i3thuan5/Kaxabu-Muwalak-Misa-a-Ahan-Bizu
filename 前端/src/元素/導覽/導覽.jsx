@@ -1,5 +1,4 @@
 import React from 'react';
-import 音檔 from './音檔';
 import './導覽.css';
 
 export default class 導覽 extends React.Component {

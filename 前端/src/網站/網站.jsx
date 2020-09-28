@@ -14,10 +14,13 @@ class BangTsam extends React.Component {
     super(props);
     this.state = {
       關鍵字: this.props.match.params.word || '',
-      語詞編號: '',
-      內容:'',
       辭典資料: [],
-      url: '',
+      imtong: {
+        語詞編號: '',
+        gi: '',
+        內容:'',  
+        url: '',
+      },
       showPlayerMenu: false,
     };
   }
@@ -35,15 +38,15 @@ class BangTsam extends React.Component {
     this.setState({showPlayerMenu: false})
   }
 
-  換音檔(語詞編號, 內容)
+  換音檔(pianho, gi, lueiong)
   {
-    if(語詞編號 == this.state.語詞編號 && 內容 == this.state.內容){
-      this.togglePlayer()
-      return
-    }
+    // if(語詞編號 == this.state.語詞編號 && 內容 == this.state.內容){
+    //   this.togglePlayer()
+    //   return
+    // }
     this.openPlayer()
-    let url = ImtongBangtsi(語詞編號, 內容)
-    this.setState({語詞編號, 內容, url});
+    let url = ImtongBangtsi(pianho, gi)
+    this.setState({imtong: {pianho, gi, lueiong, url}});
   }
 
   clearTshiauTshue = (關鍵字) => {
@@ -66,7 +69,7 @@ class BangTsam extends React.Component {
   }
 
   render () {
-    let { 關鍵字, 語詞編號, 內容, showPlayerMenu, url, 辭典資料 } = this.state
+    let { 關鍵字, 辭典資料, imtong, showPlayerMenu } = this.state
 
     return (
         <div className='app site'>
@@ -82,10 +85,7 @@ class BangTsam extends React.Component {
           </header>
 
           <導覽
-              關鍵字={this.state.關鍵字}
-              語詞編號={this.state.語詞編號}
-              跳到查詞={this.tsha}
-              內容={this.state.內容}/>
+              跳到查詞={this.tsha}/>
           <全部詞條
             換音檔={this.換音檔.bind(this)}
             辭典資料={辭典資料}/>
@@ -102,9 +102,7 @@ class BangTsam extends React.Component {
 
           <PlayerMenu 
             showPlayerMenu={showPlayerMenu}
-            url={url}
-            pianho={語詞編號}
-            lueiong={內容}
+            imtong={imtong}
             handleClose={this.closePlayer}
           />
         </div>

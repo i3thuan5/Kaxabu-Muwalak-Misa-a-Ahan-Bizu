@@ -27,7 +27,7 @@ handleReady(){
 }
 
 handleDuration = (duration) => {
-  console.log('onDuration:', duration)
+  // console.log('onDuration:', duration)
   this.setState({duration})
 }
 
@@ -40,7 +40,7 @@ handlePlay(){
 }
 
 handleProgress = state => {
-  console.log('onProgress:', state)
+  // console.log('onProgress:', state)
   this.setState(state)
 }
 
@@ -63,16 +63,17 @@ resizeProgress = () => {
 }
 
 render () {
-  let { handleClose, pianho, lueiong } = this.props
+  let { handleClose, imtong } = this.props
+  let { url, pianho, gi, lueiong } = imtong
 	let { isReady, playing, duration, played, playedSeconds } = this.state
-  
+  console.log('imtong=',imtong )
   let width = this.resizeProgress()
 
     return (
     	<div className='player-wrapper'>
-        <h4 className='ui inverted grey header'>{pianho}
-          <div className='sub header'>{lueiong}</div>
-        </h4>
+        <h2 className='ui inverted grey header'>{lueiong}
+          <div className='sub header'>{pianho} {gi}</div>
+        </h2>
         {
           isReady
             ? <div className='player-progress'
@@ -109,7 +110,7 @@ render () {
         		:	<span>waiting...</span>
         }
         <ReactPlayer
-          url={this.props.url}
+          url={url}
           className='react-player'
           width={100}
           height={20}
