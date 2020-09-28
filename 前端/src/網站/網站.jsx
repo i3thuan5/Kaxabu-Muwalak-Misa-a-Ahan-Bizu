@@ -82,21 +82,24 @@ class BangTsam extends React.Component {
     return (
         <div className='app site'>
           <div className='app main'>
-          <header className='ui text container padded basic segment'>
-            <h1 className='ui header'>
-              Kaxabu Muwalak Misa A Ahan Bizu
-              <div className='sub header'>噶哈巫語分類辭典</div>
-            </h1>
-            <div className="ui message">
-            <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
-            </div>
-          </header>
+            <header className='ui text container padded basic segment'>
+              <h1 className='ui header'>
+                Kaxabu Muwalak Misa A Ahan Bizu
+                <div className='sub header'>噶哈巫語分類辭典</div>
+              </h1>
+              <div className="ui message">
+              <i className='ui icon info'/>搜尋後，點擊你想聽的音標！！
+              </div>
+            </header>
 
-          <導覽
-              跳到查詞={this.tsha}/>
-          <全部詞條
-            換音檔={this.換音檔.bind(this)}
-            辭典資料={辭典資料}/>
+            <導覽
+                kuankianji={關鍵字}
+                跳到查詞={this.tsha}
+            />
+            <全部詞條
+              換音檔={this.換音檔.bind(this)}
+              辭典資料={辭典資料}
+            />
           </div>
 
           <footer>
