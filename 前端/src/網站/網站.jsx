@@ -47,7 +47,7 @@ class BangTsam extends React.Component {
   }
 
   clearTshiauTshue = (關鍵字) => {
-    this.setState({ 關鍵字, 語詞編號:'', 內容:'' })
+    this.setState({ 關鍵字 })
   }
 
   tsha = (關鍵字) => {
