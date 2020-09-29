@@ -9,9 +9,9 @@ services:
       - default
       - nginx-bridge
     environment:
-      VIRTUAL_HOST: "dbkaxabu.xn--v0qr21b.xn--kpry57d"
-      LETSENCRYPT_HOST: "dbkaxabu.xn--v0qr21b.xn--kpry57d"
-      LETSENCRYPT_EMAIL: "ithuan@xn--v0qr21b.xn--kpry57d"
+      VIRTUAL_HOST: "dbkaxabu.ithuan.tw"
+      LETSENCRYPT_HOST: "dbkaxabu.ithuan.tw"
+      LETSENCRYPT_EMAIL: "ithuan+dns@ithuan.tw"
     restart: always
 
 networks:
