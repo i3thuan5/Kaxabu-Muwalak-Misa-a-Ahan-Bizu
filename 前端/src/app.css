@@ -51,6 +51,9 @@ header.ui.padded.segment {
   cursor: pointer;
 }
 
+.ui.link.list.ithuan {
+  margin-top: 0;
+}
 
 /* Player */
 .player-wrapper {

@@ -16,7 +16,7 @@ const Kha = () => (
         <div className="ui inverted link list">
           <a className="item" href="https://www.facebook.com/kaxabu/" target="_blank" rel='noopener noreferer'>埔里四庄番-噶哈巫族FB</a>
           <a className="item" href="https://www.facebook.com/groups/547243925483913/" target="_blank" rel='noopener noreferer'>噶哈巫文教協會</a>
-          <a className="item" href="http://kaxabu.weebly.com/">噶哈巫語全球資訊網</a>
+          <a className="item" href="http://kaxabu.weebly.com/" target="_blank" rel='noopener noreferer'>噶哈巫語全球資訊網</a>
         </div>
       </div>
       <div className="seven wide right floated column">
@@ -25,8 +25,8 @@ const Kha = () => (
       </div>
     </div>
     <div className="ui inverted section divider"></div>
-    <div className="ui inverted horizontal small divided link list">
-      <a className="item" href="http://semantic-ui.mit-license.org/" target="_blank" rel='noopener noreferer'>ÌTHUÂN KHOKI意傳科技@{new Date().getUTCFullYear()}, Open Source MIT License</a>
+    <div className="ui inverted horizontal small divided link list ithuan">
+      <a className="item" href="https://ithuan.tw/" target="_blank" rel='noopener noreferer'>ÌTHUÂN KHOKI意傳科技@{new Date().getUTCFullYear()}, Open Source MIT License</a>
     </div>
   </div>
 </div>
