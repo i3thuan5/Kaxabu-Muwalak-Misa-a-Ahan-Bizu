@@ -1,4 +1,4 @@
-export const 後端網址 = 'https://dbkaxabu.xn--v0qr21b.xn--kpry57d/';
+export const 後端網址 = 'https://dbkaxabu.ithuan.tw/';
 
 export const ImtongBangtsi = (pianho, gi) => {
   if(gi == 'Kaxabu'){
