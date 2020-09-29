@@ -1,24 +1,15 @@
-
 body {
-  margin: 0;
+  background: #f1efeb;
 }
 
-.app.background {
+.app.site {
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-.app .container {
-  width: 960px;
-  margin: 0 auto;
-}
-
-.app .main.container {
-  display: flex;
-  flex-flow: row wrap;
+.app.main {
   flex-grow: 1;
-  align-content: flex-start;
 }
 
 .navigation {
@@ -38,14 +29,54 @@ body {
   background: #fff;
 }
 
-.app .app.footer {
-  background: #1b1c1d;
+footer {
+  margin-top: 5.5rem;
 }
 
-body {
-  background: #f1efeb;
+footer .ui.menu {
+  padding-left: 0;
 }
+
 
 /*h2 {*/
   /*color: rgba(251, 66, 75, 0.8);*/
 /*}*/
+
+header.ui.padded.segment {
+  padding-bottom: 0;
+}
+
+.ui.table tbody tr td.selectable {
+  padding: .78571429em .78571429em;
+  cursor: pointer;
+}
+
+.ui.link.list.ithuan {
+  margin-top: 0;
+}
+
+/* Player */
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  padding-top: 10px;
+}
+.player-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.player-progress {
+  position: absolute;
+  width: 1px;
+  height: 3px;
+  top: -3px;
+  left: 0;
+  background: #e03997;
+}
+.player-duration {
+  font-size: 1.7rem;
+}
