@@ -10,7 +10,7 @@ from 族語辭典.models import 分類辭典
 
 class Command(BaseCommand):
     xls所在 = join(
-        dirname(__file__), '..', '..', '..', '..',
+        dirname(__file__), '..',
         '《噶哈巫語分類辭典》EXCEL版本.xls'
     )
 
