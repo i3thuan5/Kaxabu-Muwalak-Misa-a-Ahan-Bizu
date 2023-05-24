@@ -36,11 +36,15 @@ class 分類辭典(models.Model):
         return self.語詞編號
 
     def 分類(self):
-        切 = self.切語詞編號.match(self.語詞編號)
-        分類 = 切.group(1)
+        分類, _編號 = self.分類kah編號()
         return 分類
 
     def 編號(self):
-        切 = self.切語詞編號.match(self.語詞編號)
-        編號 = int(切.group(2))
+        _分類, 編號 = self.分類kah編號()
         return 編號
+
+    def 分類kah編號(self):
+        切 = self.切語詞編號.match(self.語詞編號)
+        分類 = 切.group(1)
+        編號 = int(切.group(2))
+        return 分類, 編號

@@ -1,12 +1,8 @@
-from os.path import join, getsize, basename, dirname
-from posix import listdir
-import re
-
 from django.db.models.query_utils import Q
 from django.http.response import JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from 族語辭典.models import 分類辭典
-
-音檔目錄 = join(dirname(__file__), '..', '..', '好的')
 
 
 def _整理詞條(詞條要求):
@@ -50,39 +46,13 @@ def 聽音檔(request):
         內容 = request.GET['內容'].strip()
     except Exception:
         return HttpResponse('參數無夠')
-    切語詞編號 = re.match(r'(\d\d[A-Z]{0,1})-(\d\d\d)', 語詞編號)
-    try:
-        分類 = 切語詞編號.group(1)
-        編號 = int(切語詞編號.group(2))
-        第幾個 = (編號 - 1) * 4
-    except Exception:
-        return HttpResponse('語詞編號格式有問題')
+    詞 = get_object_or_404(分類辭典, id=語詞編號)
     if 內容 == '語詞編號':
-        第幾個 += 0
+        音檔 = 詞.語詞編號音檔
     elif 內容 == '臺語':
-        第幾個 += 1
+        音檔 = 詞.臺語音檔
     elif 內容 == '華語':
-        第幾個 += 2
+        音檔 = 詞.華語音檔
     elif 內容 == '噶哈巫':
-        第幾個 += 3
-    音檔所在 = _音檔所在(分類, 第幾個)
-    print(分類, 編號, 第幾個, basename(音檔所在))
-    try:
-        with open(音檔所在, "rb") as 檔案:
-            連線回應 = HttpResponse()
-            連線回應.write(檔案.read())
-            連線回應['Content-Type'] = 'audio/wav'
-            連線回應['Content-Length'] = getsize(音檔所在)
-            return 連線回應
-    except Exception:
-        return HttpResponse(
-            '音檔無存在！！分類：{}，編號：{}'.format(
-                分類, 編號)
-        )
-
-
-def _音檔所在(分類, 第幾個):
-    分類目錄 = join(音檔目錄, 分類)
-    for 第幾個檔名, 檔名 in enumerate(sorted(listdir(分類目錄))):
-        if 第幾個檔名 == 第幾個:
-            return join(分類目錄, 檔名)
+        音檔 = 詞.噶哈巫音檔
+    return HttpResponseRedirect(url=音檔.url)
