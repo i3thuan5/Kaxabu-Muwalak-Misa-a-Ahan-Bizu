@@ -42,14 +42,12 @@
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-0": "^6.3.13",
     "bluebird": "^2.9.27",
-    "caching-fetch": "^1.0.8",
     "classnames": "^2.1.1",
     "css-loader": "^0.11.0",
     "debug": "^2.2.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "file-loader": "^0.8.1",
-    "gh-pages": "^0.3.1",
     "history": "^1.12.6",
     "html-loader": "^0.3.0",
     "jscs": "^2.9.0",
@@ -67,6 +65,6 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "engines": {
-    "node": "^4.2.1"
+    "node": "^16.0.0"
   }
 }
