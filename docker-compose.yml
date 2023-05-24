@@ -15,6 +15,9 @@ services:
     networks:
       - nginx-bridge
     environment:
+      AWS_S3_ENDPOINT_URL: ${AWS_S3_ENDPOINT_URL}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       VIRTUAL_HOST: ${VIRTUAL_HOST:-dbkaxabu.ithuan.tw}
       LETSENCRYPT_HOST: ${VIRTUAL_HOST:-dbkaxabu.ithuan.tw}
       LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"

@@ -1,3 +1,6 @@
 Django>=4.0
 xlrd==0.9.4
 gunicorn
+
+django-storages
+boto3

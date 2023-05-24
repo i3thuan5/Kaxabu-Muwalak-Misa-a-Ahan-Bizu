@@ -49,49 +49,11 @@ DATABASES = {
         'HOST': 'postgres',
         'PORT': '',
     },
-    'kukautian': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysql',
-        'USER': 'root',
-        'PASSWORD': 'ithuan',
-        'HOST': 'mariadb',
-        'PORT': '',
-    }
 }
 
-STATIC_ROOT = '/staticfiles/'
+AWS_S3_USE_SSL = True
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = Path('/app/media')
-
-CELERY_TASK_ALWAYS_EAGER = False
-CELERY_BROKER_URL = 'amqp://khautso:bitbe@rabbitmq:5672/ithuan'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-
-EMAIL_USE_TLS = (
-    os.getenv('EMAIL_USE_TLS', default='').lower() == 'true')
-EMAIL_USE_SSL = (
-    os.getenv('EMAIL_USE_SSL', default='').lower() == 'true')
-
-if EMAIL_USE_TLS and EMAIL_USE_SSL:
-    raise ImproperlyConfigured(
-        "EMAIL_USE_TLS, EMAIL_USE_SSL bē-sái tâng-tsê True")
-elif EMAIL_USE_TLS:
-    EMAIL_PORT = 587
-elif EMAIL_USE_SSL:
-    EMAIL_PORT = 465
-else:
-    EMAIL_PORT = 25
-
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_RECEIPIENT_LIST = [
-    'carolchou@mail.moe.gov.tw',
-    'ithuan@ithuan.tw',
-]
-ADMINS = [('ithuan', 'ithuan+kautian@ithuan.tw'), ]
 
 SENTRY_DSN = os.getenv('SENTRY_DSN', default=None)
 
