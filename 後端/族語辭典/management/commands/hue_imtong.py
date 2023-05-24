@@ -1,6 +1,4 @@
-import re
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ValidationError
 from django.db import transaction
 from os.path import basename, dirname, join
 
@@ -21,14 +19,14 @@ class Command(BaseCommand):
                 tsua = tsua.strip()
                 if not tsua:
                     continue
-                phooamia= basename(dirname(tsua))
+                phooamia = basename(dirname(tsua))
                 try:
                     hunlui[phooamia].append(tsua)
                 except KeyError:
                     hunlui[phooamia] = [tsua]
         for 詞 in 分類辭典.objects.all():
             lui = hunlui[詞.分類()]
-            ho = (詞.編號() - 1) *4
+            ho = (詞.編號() - 1) * 4
             詞.語詞編號音檔 = lui[ho+0]
             詞.臺語音檔 = lui[ho+1]
             詞.華語音檔 = lui[ho+2]

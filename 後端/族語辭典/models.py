@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from django.db import models
 from storages.backends.s3boto3 import S3Boto3Storage
 
@@ -35,11 +36,11 @@ class 分類辭典(models.Model):
         return self.語詞編號
 
     def 分類(self):
-        切 = 切語詞編號.match(self.語詞編號)
+        切 = self.切語詞編號.match(self.語詞編號)
         分類 = 切.group(1)
         return 分類
 
     def 編號(self):
-        切 = 切語詞編號.match(self.語詞編號)
+        切 = self.切語詞編號.match(self.語詞編號)
         編號 = int(切.group(2))
         return 編號
