@@ -1,0 +1,34 @@
+os: linux
+dist: jammy
+language: python
+python:
+  - '3.10'
+before_install:
+  - pip install --upgrade pip setuptools
+branches:
+  only:
+  - master
+  - CD
+jobs:
+  include:
+    - name: Au-tuan test
+      install:
+        - pip install tox
+      script:
+        - tox -e test
+    - name: checkmigrations
+      install:
+        - pip install tox
+      script:
+        - tox -e checkmigrations
+    - name: Au-tuan flake8
+      install:
+        - pip install tox
+      script:
+        - tox -e flake8
+    - stage: docker
+      name: docker build
+      services:
+        - docker
+      script:
+        - docker-compose build
