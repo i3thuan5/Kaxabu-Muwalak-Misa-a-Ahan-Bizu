@@ -23,7 +23,7 @@ def 顯示全部資料(request):
 def 查關鍵字(request):
     try:
         關鍵字 = request.GET['關鍵字'].strip()
-    except:
+    except Exception:
         return 顯示全部資料(request)
     if 關鍵字 == '':
         return 顯示全部資料(request)
@@ -48,14 +48,14 @@ def 聽音檔(request):
     try:
         語詞編號 = request.GET['語詞編號'].strip()
         內容 = request.GET['內容'].strip()
-    except:
+    except Exception:
         return HttpResponse('參數無夠')
     切語詞編號 = re.match(r'(\d\d[A-Z]{0,1})-(\d\d\d)', 語詞編號)
     try:
         分類 = 切語詞編號.group(1)
         編號 = int(切語詞編號.group(2))
         第幾個 = (編號 - 1) * 4
-    except:
+    except Exception:
         return HttpResponse('語詞編號格式有問題')
     if 內容 == '語詞編號':
         第幾個 += 0
@@ -74,7 +74,7 @@ def 聽音檔(request):
             連線回應['Content-Type'] = 'audio/wav'
             連線回應['Content-Length'] = getsize(音檔所在)
             return 連線回應
-    except:
+    except Exception:
         return HttpResponse(
             '音檔無存在！！分類：{}，編號：{}'.format(
                 分類, 編號)

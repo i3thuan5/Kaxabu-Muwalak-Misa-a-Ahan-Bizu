@@ -10,5 +10,6 @@ class 分類辭典(models.Model):
     臺語譯解 = models.CharField(max_length=200, blank=True)
     備註 = models.CharField(max_length=200, blank=True)
     出處 = models.CharField(max_length=200, blank=True)
+
     def __str__(self):
         return self.語詞編號
