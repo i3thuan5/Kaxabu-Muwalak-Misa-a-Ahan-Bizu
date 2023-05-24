@@ -10,8 +10,6 @@ django==4.2.1
     # via
     #   -r requirements.in
     #   django-cors-headers
-django-cors-headers==3.0.2
-    # via -r requirements.in
 gunicorn==20.0.4
     # via -r requirements.in
 sqlparse==0.4.4
