@@ -14,6 +14,7 @@ services:
     build: 後端/
     networks:
       - nginx-bridge
+      - default
     environment:
       AWS_S3_ENDPOINT_URL: ${AWS_S3_ENDPOINT_URL}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
@@ -22,6 +23,18 @@ services:
       LETSENCRYPT_HOST: ${VIRTUAL_HOST_AUTUAN:-dbkaxabu.ithuan.tw}
       LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
     restart: always
+  postgres:
+    image: postgres:15
+    labels:
+      - backup.postgres=true
+    environment:
+      POSTGRES_PASSWORD: ithuan
+    volumes:
+      - "postgres_database:/var/lib/postgresql/data"
+    restart: always
+
+volumes:
+  postgres_database:
 
 networks:
   nginx-bridge:

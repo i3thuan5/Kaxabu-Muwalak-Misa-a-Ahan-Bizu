@@ -26,6 +26,8 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
+psycopg2-binary==2.9.6
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via botocore
 s3transfer==0.6.1
