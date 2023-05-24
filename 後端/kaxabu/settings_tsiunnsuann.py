@@ -1,8 +1,6 @@
 import os
-from pathlib import Path
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from django.core.exceptions import ImproperlyConfigured
 
 from .settings import *  # noqa
 
