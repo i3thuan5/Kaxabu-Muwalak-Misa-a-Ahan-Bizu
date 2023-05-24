@@ -6,7 +6,7 @@ class TshiThiann(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.setUpClass()
+        super().setUpClass()
         call_command('hue_xls')
         call_command('hue_imtong')
 
