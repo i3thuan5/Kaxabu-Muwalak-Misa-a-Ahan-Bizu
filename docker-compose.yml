@@ -4,27 +4,22 @@ services:
   nginx:
     build: 前端/
     networks:
-      - default
       - nginx-bridge
     environment:
-      VIRTUAL_HOST: "kaxabu.ithuan.tw"
-      LETSENCRYPT_HOST: "kaxabu.ithuan.tw"
-      LETSENCRYPT_EMAIL: "ithuan+dns@ithuan.tw"
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-kaxabu.ithuan.tw}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST:-kaxabu.ithuan.tw}
+      LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
     restart: always
   gunicorn:
     build: 後端/
-    volumes:
-      - ./好的/:/opt/好的/:ro
     networks:
-      - default
       - nginx-bridge
     environment:
-      VIRTUAL_HOST: "dbkaxabu.ithuan.tw"
-      LETSENCRYPT_HOST: "dbkaxabu.ithuan.tw"
-      LETSENCRYPT_EMAIL: "ithuan+dns@ithuan.tw"
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-dbkaxabu.ithuan.tw}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST:-dbkaxabu.ithuan.tw}
+      LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
     restart: always
 
 networks:
   nginx-bridge:
     external: true
-
