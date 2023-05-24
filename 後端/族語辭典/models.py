@@ -29,5 +29,17 @@ class 分類辭典(models.Model):
         storage=NgaungawStorage(), editable=False, null=True
     )
 
+    切語詞編號 = re.compile(r'(\d\d[A-Z]{0,1})-(\d\d\d)')
+
     def __str__(self):
         return self.語詞編號
+
+    def 分類(self):
+        切 = 切語詞編號.match(self.語詞編號)
+        分類 = 切.group(1)
+        return 分類
+
+    def 編號(self):
+        切 = 切語詞編號.match(self.語詞編號)
+        編號 = int(切.group(2))
+        return 編號

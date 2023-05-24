@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
 import xlrd
 import re
+from django.core.management.base import BaseCommand
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from os.path import dirname, join
 
 from 族語辭典.models import 分類辭典
@@ -13,6 +14,7 @@ class Command(BaseCommand):
         '《噶哈巫語分類辭典》EXCEL版本.xls'
     )
 
+    @transaction.atomic
     def handle(self, *args, **options):
         表格檔 = xlrd.open_workbook(self.xls所在)
         表格 = 表格檔.sheet_by_name('工作表1')
