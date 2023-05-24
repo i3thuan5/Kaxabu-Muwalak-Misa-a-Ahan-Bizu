@@ -1,6 +1,4 @@
-FROM python:3.7-stretch
-
-MAINTAINER Ithuan
+FROM python:3.10-alpine
 
 WORKDIR /opt/kaxabu/
 COPY requirements.txt ./
