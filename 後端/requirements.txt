@@ -17,7 +17,10 @@ certifi==2023.5.7
 django==4.2.1
     # via
     #   -r requirements.in
+    #   django-cors-headers
     #   django-storages
+django-cors-headers==4.0.0
+    # via -r requirements.in
 django-storages==1.13.2
     # via -r requirements.in
 gunicorn==20.1.0
