@@ -1,5 +1,5 @@
 from django.db.models.query_utils import Q
-from django.http.response import JsonResponse, HttpResponse
+from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from 族語辭典.models import 分類辭典
@@ -19,7 +19,7 @@ def 顯示全部資料(request):
 def 查關鍵字(request):
     try:
         關鍵字 = request.GET['關鍵字'].strip()
-    except Exception:
+    except KeyError:
         return 顯示全部資料(request)
     if 關鍵字 == '':
         return 顯示全部資料(request)
@@ -44,8 +44,8 @@ def 聽音檔(request):
     try:
         語詞編號 = request.GET['語詞編號'].strip()
         內容 = request.GET['內容'].strip()
-    except Exception:
-        return HttpResponse('參數無夠')
+    except KeyError:
+        return HttpResponseBadRequest('參數ài「語詞編號」kah「內容」')
     詞 = get_object_or_404(分類辭典, id=語詞編號)
     if 內容 == '語詞編號':
         音檔 = 詞.語詞編號音檔
