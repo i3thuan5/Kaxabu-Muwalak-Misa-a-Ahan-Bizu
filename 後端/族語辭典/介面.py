@@ -46,7 +46,7 @@ def 聽音檔(request):
         內容 = request.GET['內容'].strip()
     except KeyError:
         return HttpResponseBadRequest('參數ài「語詞編號」kah「內容」')
-    詞 = get_object_or_404(分類辭典, id=語詞編號)
+    詞 = get_object_or_404(分類辭典, 語詞編號=語詞編號)
     if 內容 == '語詞編號':
         音檔 = 詞.語詞編號音檔
     elif 內容 == '臺語':
@@ -55,4 +55,4 @@ def 聽音檔(request):
         音檔 = 詞.華語音檔
     elif 內容 == '噶哈巫':
         音檔 = 詞.噶哈巫音檔
-    return HttpResponseRedirect(url=音檔.url)
+    return HttpResponseRedirect(音檔.url)

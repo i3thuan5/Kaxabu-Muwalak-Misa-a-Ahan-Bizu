@@ -6,7 +6,7 @@ from 族語辭典.介面 import 聽音檔
 
 
 urlpatterns = [
-    path('', 顯示全部資料),
-    path('查', 查關鍵字),
-    path('聽', 聽音檔),
+    path('', 顯示全部資料, name='全部'),
+    path('查', 查關鍵字, name='查'),
+    path('聽', 聽音檔, name='聽'),
 ]
