@@ -52,12 +52,6 @@ DATABASES = {
 AWS_S3_USE_SSL = True
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.ithuan\.tw$",
-    r"^https://\w+\.ithoan\.tw$",
-]
-
 SENTRY_DSN = os.getenv('SENTRY_DSN', default=None)
 
 if SENTRY_DSN:
