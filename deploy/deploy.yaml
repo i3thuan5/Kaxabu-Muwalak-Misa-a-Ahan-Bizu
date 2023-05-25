@@ -26,10 +26,6 @@
           - docker
           - docker-compose
         extra_args: --user
-    - name: Log into DockerHub
-      community.docker.docker_login:
-        username: "{{ DOCKER_USER }}"
-        password: "{{ DOCKER_TOKEN }}"
     - name: 開docker-compose up -d
       community.docker.docker_compose:
         project_src: "{{ tsuanan_repo }}"

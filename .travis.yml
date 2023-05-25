@@ -32,8 +32,6 @@ jobs:
         - docker
       script:
         - docker-compose build
-jobs:
-  include:
     - stage: deploy
       name: deploy
       if: (type = push or type = cron) and (branch = master or branch = CD)
