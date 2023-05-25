@@ -18,7 +18,7 @@ class TshiThiann(TestCase):
                 '內容': '噶哈巫',
             })
         ))
-        self.assertEqual(huein.status_code, 302)
+        self.assertEqual(huein.status_code, 302, huein)
 
     def test_聽音檔編號毋著(self):
         huein = self.client.get('聽?{}'.format(
@@ -27,11 +27,11 @@ class TshiThiann(TestCase):
                 '內容': '噶哈巫',
             })
         ))
-        self.assertEqual(huein.status_code, 404)
+        self.assertEqual(huein.status_code, 404, huein)
 
     def test_顯示全部資料(self):
         huein = self.client.get('')
-        self.assertEqual(huein.status_code, 200)
+        self.assertEqual(huein.status_code, 200, huein)
 
     def test_查(self):
         huein = self.client.get('聽?{}'.format(
@@ -39,4 +39,4 @@ class TshiThiann(TestCase):
                 '關鍵字': '聲',
             })
         ))
-        self.assertEqual(huein.status_code, 200)
+        self.assertEqual(huein.status_code, 200, huein)
