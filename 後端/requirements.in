@@ -1,0 +1,13 @@
+Django>=4.0
+xlrd==0.9.4
+
+django-cors-headers
+
+psycopg2-binary
+
+django-storages
+boto3
+
+sentry-sdk
+
+gunicorn

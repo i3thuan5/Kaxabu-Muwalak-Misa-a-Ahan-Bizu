@@ -4,27 +4,40 @@ services:
   nginx:
     build: 前端/
     networks:
-      - default
       - nginx-bridge
     environment:
-      VIRTUAL_HOST: "kaxabu.ithuan.tw"
-      LETSENCRYPT_HOST: "kaxabu.ithuan.tw"
-      LETSENCRYPT_EMAIL: "ithuan+dns@ithuan.tw"
+      VIRTUAL_HOST: ${VIRTUAL_HOST_TSIANTUAN:-kaxabu.ithuan.tw}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST_TSIANTUAN:-kaxabu.ithuan.tw}
+      LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
     restart: always
   gunicorn:
     build: 後端/
-    volumes:
-      - ./好的/:/opt/好的/:ro
     networks:
-      - default
       - nginx-bridge
+      - default
     environment:
-      VIRTUAL_HOST: "dbkaxabu.ithuan.tw"
-      LETSENCRYPT_HOST: "dbkaxabu.ithuan.tw"
-      LETSENCRYPT_EMAIL: "ithuan+dns@ithuan.tw"
+      AWS_S3_ENDPOINT_URL: ${AWS_S3_ENDPOINT_URL}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      VIRTUAL_HOST: ${VIRTUAL_HOST_AUTUAN:-dbkaxabu.ithuan.tw}
+      SECRET_KEY: ${SECRET_KEY}
+      SENTRY_DSN: ${SENTRY_DSN}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST_AUTUAN:-dbkaxabu.ithuan.tw}
+      LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
     restart: always
+  postgres:
+    image: postgres:15
+    labels:
+      - backup.postgres=true
+    environment:
+      POSTGRES_PASSWORD: ithuan
+    volumes:
+      - "postgres_database:/var/lib/postgresql/data"
+    restart: always
+
+volumes:
+  postgres_database:
 
 networks:
   nginx-bridge:
     external: true
-

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import url
+from django.urls import path
 from 族語辭典.介面 import 顯示全部資料
 from 族語辭典.介面 import 查關鍵字
 from 族語辭典.介面 import 聽音檔
 
 
 urlpatterns = [
-    url(r'^$', 顯示全部資料),
-    url(r'^查$', 查關鍵字),
-    url(r'^聽$', 聽音檔),
+    path('', 顯示全部資料, name='全部'),
+    path('查', 查關鍵字, name='查'),
+    path('聽', 聽音檔, name='聽'),
 ]
