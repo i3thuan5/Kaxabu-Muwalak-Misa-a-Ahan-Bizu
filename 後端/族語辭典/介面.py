@@ -55,4 +55,6 @@ def 聽音檔(request):
         音檔 = 詞.華語音檔
     elif 內容 == '噶哈巫':
         音檔 = 詞.噶哈巫音檔
+    else:
+        音檔 = 詞.噶哈巫音檔
     return HttpResponseRedirect(音檔.url)
