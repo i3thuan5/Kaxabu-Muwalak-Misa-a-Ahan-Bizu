@@ -1,5 +1,6 @@
 from django.db.models.query_utils import Q
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse
+from django.http import HttpResponseNotFound
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from 族語辭典.models import 分類辭典
@@ -45,7 +46,7 @@ def 聽音檔(request):
         語詞編號 = request.GET['語詞編號'].strip()
         內容 = request.GET['內容'].strip()
     except KeyError:
-        return HttpResponseBadRequest('參數ài「語詞編號」kah「內容」')
+        return HttpResponseNotFound('參數ài「語詞編號」kah「內容」')
     詞 = get_object_or_404(分類辭典, 語詞編號=語詞編號)
     if 內容 == '語詞編號':
         音檔 = 詞.語詞編號音檔
@@ -56,5 +57,5 @@ def 聽音檔(request):
     elif 內容 == '噶哈巫':
         音檔 = 詞.噶哈巫音檔
     else:
-        return HttpResponseBadRequest('無這內容～')
+        return HttpResponseNotFound('無這內容～')
     return HttpResponseRedirect(音檔.url)
