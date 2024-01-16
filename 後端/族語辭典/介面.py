@@ -1,5 +1,5 @@
 from django.db.models.query_utils import Q
-from django.http.response import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from 族語辭典.models import 分類辭典
@@ -56,5 +56,5 @@ def 聽音檔(request):
     elif 內容 == '噶哈巫':
         音檔 = 詞.噶哈巫音檔
     else:
-        音檔 = 詞.噶哈巫音檔
+        return HttpResponseBadRequest('無這內容～')
     return HttpResponseRedirect(音檔.url)
