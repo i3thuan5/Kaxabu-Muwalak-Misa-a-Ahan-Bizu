@@ -23,12 +23,14 @@ django-cors-headers==4.0.0
     # via -r requirements.in
 django-storages==1.13.2
     # via -r requirements.in
-gunicorn==20.1.0
+gunicorn==22.0.0
     # via -r requirements.in
 jmespath==1.0.1
     # via
     #   boto3
     #   botocore
+packaging==24.0
+    # via gunicorn
 psycopg2-binary==2.9.6
     # via -r requirements.in
 python-dateutil==2.8.2
@@ -49,6 +51,3 @@ urllib3==1.26.16
     #   sentry-sdk
 xlrd==0.9.4
     # via -r requirements.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
