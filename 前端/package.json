@@ -61,7 +61,7 @@
     "superagent-bluebird-promise": "^2.1.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.2",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "^5.3.4",
     "webpack-hot-middleware": "^2.6.0"
   },
   "engines": {
