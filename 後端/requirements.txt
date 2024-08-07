@@ -14,7 +14,7 @@ botocore==1.29.139
     #   s3transfer
 certifi==2024.7.4
     # via sentry-sdk
-django==4.2.14
+django==4.2.15
     # via
     #   -r requirements.in
     #   django-cors-headers
